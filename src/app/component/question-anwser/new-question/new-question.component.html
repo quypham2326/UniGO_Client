@@ -1,0 +1,61 @@
+<div id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box box-white">
+                    <div>
+                        <form #form="ngForm" (ngSubmit)="onSave(form)">
+                            <div class="form-group">
+                                <label>Tiêu đề</label>
+                                <input class="form-control" maxlength="200" minlength="20" name="title" #title="ngModel" ngModel required>
+                                <div *ngIf="title.errors && (title.touched || form.submitted)" class="alert alert-danger">
+                                    <div [hidden]="!title.errors.required">
+                                        Vui lòng nhập tiêu đề câu hỏi
+                                    </div>
+                                    <div [hidden]="!title.errors.minlength">
+                                        Nhập ít nhất 20 ký tự
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Nội dung câu hỏi</label>
+                                <textarea id="summernote"></textarea>
+                                <div *ngIf="isCheck" class="alert alert-danger">
+                                    <div [hidden]="!isCheck">
+                                        Tối thiểu 50 ký tự
+                                    </div>
+                                </div>
+                            </div>
+                            <!--tag-->
+                            <div class="form-group">
+                                <label>Thẻ câu hỏi</label>
+
+                                <tag-input [ngModel]="" name="tagUni" [onlyFromAutocomplete]="true" [displayBy]="'tagName'" [identifyBy]="'id'" [secondaryPlaceholder]="'Nhập thẻ cho câu hỏi'">
+                                    <tag-input-dropdown [showDropdownIfEmpty]="true" [focusFirstElement]="true" [displayBy]="'tagName'" [identifyBy]="'id'" [autocompleteItems]="listTagName">
+                                        <ng-template let-item="item" let-index="index">
+                                            <!--({{ index }}) {{ item.id }}:-->
+                                            {{ item.tagName }}
+                                        </ng-template>
+                                    </tag-input-dropdown>
+                                </tag-input>
+                            </div>
+                            <br><br><br>
+
+                            <div style="text-align: center">
+                                <button class="btn btn-uni-primary" type="submit">Đặt câu hỏi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box box-white">
+                    <div class="bold" style="font-size: 15px"> Đặt câu hỏi như thế nào?</div>
+                    <div>Không đăng câu hỏi không có nội dung rõ ràng</div>
+                    <div>Cung cấp chi tiết câu hỏi cũng như các kiến thức của bạn</div>
+                    <div> Nếu câu hỏi liên quan đến trường học. Vui lòng đến phần bình luận của trường. Để được tư vấn nhanh hơn</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

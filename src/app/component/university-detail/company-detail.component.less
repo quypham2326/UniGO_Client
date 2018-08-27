@@ -1,0 +1,366 @@
+@color-uni-primary: #f05f40;
+
+.company-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-top: 0;
+}
+#company-title {
+  position: relative;
+  overflow: initial;
+}
+.company-logo-helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+#company-detail{
+  max-width: 1024px;
+  margin-top: 15px;
+  .company-cover{
+    position: relative;
+    img{
+      width: 100%;
+      height: auto;
+    }
+  }
+  .company-avatar{
+    width: 150px;
+    height: 150px;
+    padding: 5px;
+    position: absolute;
+    top: -25px;
+    left: 20px;
+    background-color: #fff;
+    text-align: center;
+    border: 1px solid #efefef;
+    img{
+      width: 100%;
+      max-height: 100%;
+      vertical-align: middle;
+    }
+  }
+  .company-name{
+    font-weight: bold;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+  .company-overview{
+    min-height: 120px;
+    font-size: 14px;
+    button{
+      line-height: 14px;
+      width: 150px;
+      margin-bottom: 5px;
+      a {
+        color: #fff;
+      }
+    }
+    a:hover{
+      text-decoration: none
+    }
+    .detail-icon{
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+      text-align: center;
+      margin-right: 10px;
+      color: @color-uni-primary;
+    }
+    .detail-item{
+      margin-bottom: 5px;
+      line-height: 30px;
+      color: #666;
+    }
+  }
+  #review-box{
+    .active-star{
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .star-bar{
+      font-size: 0;
+      position: relative;
+      white-space: nowrap;
+      display: inline-block;
+      margin: 0 auto;
+    }
+    .rating-overall{
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+    .overall-rate{
+      font-size: 27px;
+      display: block;
+      margin-top: 35px;
+      color: @color-uni-primary;
+      font-weight: 600;
+    }
+  }
+  .rating-overall{
+    i{
+      font-size: 30px;
+      padding: 4px 4px 2px 7px;
+      color: white;
+      background: #ccc;
+      margin-right: 3px;
+    }
+  }
+  .review-overall-text{
+    margin: 0px 0px 0px -17px;
+    padding-top: 30px;
+    font-size: 14px;
+  }
+}
+#company-detail .rating-overall i.active:nth-child(5) {
+  margin-right: 0px;
+}
+#company-detail .rating-overall i.active{
+  background-color: @color-uni-primary;
+}
+#company-about {
+  text-align: justify;
+  line-height: 25px;
+}
+.text-dark-gray {
+  color: black;
+}
+
+.text-dark-gray li:hover{
+  transition: 0.2s;
+  transform: scale(1.02);
+  background: @color-uni-primary;
+  color: white;
+  cursor:pointer;
+}
+#company-fixed-box {
+  position: fixed;
+  background: #ffffff;
+  z-index: 1000;
+  top: 0;
+  padding: 26px;
+  padding-bottom: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,.3);
+}
+#company-fixed-box button {
+  line-height: 14px;
+}
+#fixed-box-name {
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 0;
+  font-size: 17px;
+  font-weight: bold;
+  color: @color-uni-primary;
+  vertical-align: middle;
+}
+
+.fixed-box-logo img{
+  width: auto;
+  height: 25px;
+  margin-right: 10px;
+}
+/* Extra-Small devices (767px and down) */
+@media (max-width: 767px) {
+  #company-detail .company-avatar {
+    display: none;
+  }
+  #company-detail .company-name {
+    text-align: center;
+  }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+  #company-detail .company-overview {
+    margin-left: 163px;
+  }
+  #company-detail .company-avatar img {
+    width: 130px;
+    height: 130px;
+  }
+  #company-detail .company-avatar {
+    width: 140px;
+    height: 140px;
+  }
+  #company-detail .company-avatar {
+    bottom: -115px;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  #company-detail .company-overview {
+    margin-left: 185px;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1200px) {
+  #company-detail .company-overview {
+    margin-left: 180px;
+  }
+}
+.rating-container{
+  text-align: center;
+  .stars{
+    display: block;
+    i{
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+      margin-right: 3px;
+      padding: 3px;
+    }
+  }
+}
+.star-star-rating {
+  position: relative;
+  display: inline-block;
+  font-size: 45px;
+  color: #d3d3d3;
+}
+.full-star-rating {
+  color: @color-uni-primary;
+}
+.half-star-star-rating {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: @color-uni-primary;
+}
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+
+.radial-progress {
+  @circle-size: 80px;
+  @circle-background: #d6dadc;
+  @circle-color: @color-uni-primary;
+  @inset-size: 70px;
+  @inset-color: #fbfbfb;
+  @transition-length: 1s;
+  @shadow: 6px 6px 10px rgba(0,0,0,0.2);
+  @percentage-color: @color-uni-primary;
+  @percentage-font-size: 22px;
+  @percentage-text-width: 57px;
+
+  width:  @circle-size;
+  height: @circle-size;
+
+  background-color: @circle-background;
+  border-radius: 50%;
+  .circle {
+    .mask, .fill, .shadow {
+      width:    @circle-size;
+      height:   @circle-size;
+      position: absolute;
+      border-radius: 50%;
+    }
+    .shadow {
+      box-shadow: @shadow inset;
+    }
+    .mask, .fill {
+      -webkit-backface-visibility: hidden;
+      transition: -webkit-transform @transition-length;
+      transition: -ms-transform @transition-length;
+      transition: transform @transition-length;
+      border-radius: 50%;
+    }
+    .mask {
+      clip: rect(0px, @circle-size, @circle-size, @circle-size/2);
+      .fill {
+        clip: rect(0px, @circle-size/2, @circle-size, 0px);
+        background-color: @circle-color;
+      }
+    }
+  }
+  .inset {
+    width:       @inset-size;
+    height:      @inset-size;
+    position:    absolute;
+    margin-left: (@circle-size - @inset-size)/2;
+    margin-top:  (@circle-size - @inset-size)/2;
+
+    background-color: @inset-color;
+    border-radius: 50%;
+    box-shadow: @shadow;
+    .percentage {
+      height:   @percentage-font-size;
+      width:    @percentage-text-width;
+      position: absolute;
+      top:      (@inset-size - @percentage-font-size) / 2;
+      left:     (@inset-size - @percentage-text-width) / 2;
+      line-height: 1;
+      span {
+        width:          @percentage-text-width;
+        display:        inline-block;
+        vertical-align: top;
+        text-align:     center;
+        font-weight:    800;
+        font-size:      @percentage-font-size;
+        font-family:    "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color:          @percentage-color;
+      }
+    }
+  }
+}
+.list-major {
+  font-size: 12px;
+  margin: 5px auto;
+  display: inline-block;
+  border: 1px solid #d5d5d5;
+  padding: 5px 15px;
+  border-radius: 7px;
+  margin-right: 7px;
+  margin-bottom: 10px;
+}
+
+//.list-major-group {
+//  font-size: 15px;
+//  margin: 5px auto;
+//  display: inline-block;
+//  //border: 1px solid #d5d5d5;
+//  //padding: 5px 15px;
+//  //border-radius: 7px;
+//  margin-right: 7px;
+//  margin-bottom: 10px;
+//}
+
+// Top currelate university
+
+.top-correlate .thumb {
+  width: 90px;
+  height: 90px;
+  border: 1px solid #dfdfdf;
+  padding: 3px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.list-article{
+  font-size: 12px;
+  margin: 5px auto;
+  display: inline-grid;
+  //border: 1px solid #d5d5d5;
+  padding: 5px 15px;
+  border-radius: 7px;
+  margin-right: 45px;
+  margin-bottom: 10px;
+  width: 190px;
+}
+.list-article img{
+  width: 160px;
+  height: 160px;
+}
+.list-article :hover{
+  cursor: pointer;
+  color: @color-uni-primary;
+}

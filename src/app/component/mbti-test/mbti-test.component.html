@@ -1,0 +1,238 @@
+<div id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div *ngIf="!tested" class="box box-white">
+                    <div class="box-title title-mbit text-highlight">
+                        Bài trắc nghiệm MBTI
+                    </div>
+                    <form #fMBTI="ngForm" id="form-quiz-mbti">
+                        <div *ngFor="let item of questions; let i=index" class="question" style="margin-bottom: 25px">
+                            <span><strong>{{item.id}}.</strong></span>
+                            <span><strong>{{item.question}}</strong></span>
+                            <div style="background-color: #f7f7f7;margin-top: 10px;" class="row">
+                                <mat-radio-group ngModel name="{{item.name}}">
+                                    <div class="col-md-6 radio">
+                                        <mat-radio-button value="a" (click)="onChoose(item,'a')">{{item.option1}}</mat-radio-button>
+                                    </div>
+                                    <div class="col-md-6 radio" style="margin-top: 10px">
+                                        <mat-radio-button value="b" (click)="onChoose(item,'b')">{{item.option2}}</mat-radio-button>
+                                    </div>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px" class="text-center">
+                            <button type="submit" (click)="onSubmit(fMBTI)" id="btn-submit-score" class="btn btn-uni-primary">Xem
+                                kết quả</button>
+                            <button (click)="cancel()" class="btn btn-default">Hủy bỏ</button>
+                        </div>
+                    </form>
+                </div>
+                <div *ngIf="tested" class="box box-white">
+                    <div class="text-center">
+                        <div>
+                            <p style="font-size: 18px; text-transform: uppercase;"><strong>Nhóm tính cách của bạn là</strong></p>
+                            <h2 class="box-title bold text-highlight" style="font-size: 32px; margin: 25px auto;">{{mbtiResult?.mbtitype.mbtitypeName}}
+                                - {{mbtiResult?.mbtitype.contentType}}</h2>
+                            <a (click)="tested = !tested; update = true" class="btn btn-topcv-gray btn-md"><i class="fa fa-pencil"></i>
+                                Làm lại Trắc nghiệm</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--List Major appropriate-->
+                <div *ngIf="tested" class="box box-white">
+                    <!--<div class="text-center">-->
+                    <!--<div>-->
+                    <p style="font-size: 18px; text-transform: uppercase; text-align: center; margin-bottom: 30px">
+                        <strong class="text-highlight">Một số ngành phù hợp cho bạn</strong></p>
+                    <div *ngFor="let majorGroup of majorResult | groupBy">
+                        <span style="font-size: 20px" [matTooltip]="majorGroup.resources[0].major.groupMajor.name">Khối Ngành
+                            {{majorGroup.name}}</span>
+                        <br>
+                        <ul class="major-list-choice">
+                            <li *ngFor="let resource of majorGroup.resources" class="box-title bold list-major text-highlight">
+                                <a [routerLink]="['/app-view-major-university',resource.major.id]" class="major">
+                                    {{resource.major.majorName}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--<ul>-->
+                    <!--<li *ngFor="let major of majorResult"-->
+                    <!--class="box-title bold text-highlight list-major">-->
+                    <!--{{major.major.majorName}}-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+
+                <!--List Top University Appropriate-->
+                <div *ngIf="tested" class="box box-white">
+                    <p style="font-size: 18px; text-transform: uppercase; text-align: center; margin-bottom: 30px">
+                        <strong class="text-highlight">Một số trường gợi ý theo tính cách của bạn</strong></p>
+                    <div style="display: flex">
+                        <div style="margin-left: 10px" *ngFor="let topCorrelate of topUniMBTI">
+                            <a [routerLink]="['/university',topCorrelate.university.id]" *ngIf="topCorrelate.university.logo">
+                                <img class="logo-uni-mbti" [matTooltip]="topCorrelate.university.name" src="{{topCorrelate.university.logo}}">
+                            </a>
+
+                            <a [routerLink]="['/university',topCorrelate.university.id]" *ngIf="!topCorrelate.university.logo">
+                                <img class="logo-uni-mbti" [matTooltip]="topCorrelate.university.name" src="../../../assets/image/image-not-found.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--List University Appropriate-->
+                <!--<div *ngIf="tested" class="box box-white">-->
+                <!--<p style="font-size: 18px; text-transform: uppercase; text-align: center; margin-bottom: 30px">-->
+                <!--<strong>Một số trường gợi ý theo tính cách của bạn</strong></p>-->
+
+                <!--<div class="box box-white" *ngFor="let topCorrelate of topUniMBTI">-->
+                <!--<a class="top-correlate" [routerLink]="['/university',topCorrelate.university.id]" *ngIf="topCorrelate.university.logo">-->
+                <!--<img src="{{topCorrelate.university.logo}}" class="thumb">-->
+                <!--</a>-->
+
+                <!--<a class="top-correlate" [routerLink]="['/university',topCorrelate.university.id]" *ngIf="!topCorrelate.university.logo">-->
+                <!--<img src="../../../assets/image/image-not-found.png" class="thumb">-->
+                <!--</a>-->
+                <!--<a [routerLink]="['/university',topCorrelate.university.id]" style="color: black; font-size: 14px">{{topCorrelate.university.name}}</a>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--Tổng quan MBTI-->
+                <div *ngIf="tested" class="box box-white">
+                    <h2 class="box-title bold text-highlight" style="font-size: 32px; margin: 25px auto;">Tổng Quan</h2>
+                    <div [innerHTML]="mbtiResult?.mbtitype.contentType" class="text-dark-gray">
+                    </div>
+                </div>
+
+            </div>
+            <!--side bên tay phải-->
+            <div class="col-sm-4" style="background-color: #f7f7f7" id="sidebar">
+                <div class="box box-white text-center-sm">
+                    <div class="row" style="margin: auto">
+                        <h1 class="box-title title-right text-highlight">TRẮC NGHIỆM TÍNH CÁCH MBTI</h1>
+                        <p>
+                            MBTI (Myers-Briggs Type Indication) - Phân loại tính cách là phương pháp sử dụng những câu hỏi trắc nghiệm tâm lý để xác
+                            định tính cách của con người, dựa vào đó chúng ta hiểu chính mình hơn, nếu biết được tính cách
+                            của người khác chúng ta có thể đoán được suy nghĩ, hành động của họ. MBTI được ứng dụng nhiều
+                            trong việc: Xây dựng đội ngũ nhân viên, quản lý và đào tạo, đối phó với căng thẳng, giải quyết
+                            xung đột, đàm phán, hướng dẫn nghề nghiệp, xây dựng các mối quan hệ cá nhân tốt hơn.
+                        </p>
+                    </div>
+                </div>
+                <div class="box box-white">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="box-title bold text-dark-gray" style="font-size: 24px; margin-bottom: 20px;">16 tính
+                                cách MBTI</h2>
+                        </div>
+                        <div class="col-xs-12">
+                            <ul class="mbti-personalities">
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/istj.png" class="thumb"> ISTJ - Người
+                                        trách nhiệm
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/isfj.png" class="thumb"> ISFJ - Người
+                                        nuôi dưỡng
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/isfp.png" class="thumb"> ISFP - Người
+                                        nghệ sĩ
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/istp.png" class="thumb"> ISTP - Nhà
+                                        kỹ thuật
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/infp.png" class="thumb"> INFP - Người
+                                        lý tưởng hóa
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/infj.png" class="thumb"> INFJ - Người
+                                        che chở
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/intj.png" class="thumb"> INTJ - Nhà
+                                        khoa học
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/intp.png" class="thumb"> INTP - Nhà
+                                        tư duy
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/enfj.png" class="thumb"> ENFJ - Người
+                                        cho đi
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/enfp.png" class="thumb"> ENFP - Người
+                                        truyền cảm hứng
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/entj.png" class="thumb"> ENTJ - Nhà
+                                        điều hành
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/entp.png" class="thumb"> ENTP - Người
+                                        nhìn xa
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/esfj.png" class="thumb"> ESFJ - Người
+                                        quan tâm
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/esfp.png" class="thumb"> ESFP - Người
+                                        trình diễn
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/entj.png" class="thumb"> ESTJ - Người
+                                        giám hộ
+                                    </div>
+                                </li>
+                                <li class="">
+                                    <div>
+                                        <img src="https://www.topcv.vn/images/mbti/web/estp.png" class="thumb"> ESTP - Người
+                                        thực thi
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

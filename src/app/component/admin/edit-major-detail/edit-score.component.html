@@ -1,0 +1,167 @@
+<!--<div style="width: 100%" *ngFor="let itemMU of majorUniversities">-->
+  <!--<div class="major-group row">-->
+    <!--<div class="col-md-5 major-title">{{itemMU.major.majorName}}</div>-->
+    <!--<div class="col-md-5" [attr.id]="'major' + itemMU.id">-->
+      <!--<div class="col-md-6">-->
+        <!--<select2 [data]="listBlock"-->
+                 <!--[options]="options"-->
+                 <!--[value]=""-->
+                 <!--[width]="100"-->
+                 <!--(valueChanged)="getValueMajor($event,itemMU.id)"></select2>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div style="padding-bottom: 20px;"  class="row" *ngFor="let item of currentMajor[itemMU.id]">-->
+    <!--<form #scoreForm="ngForm" (ngSubmit)="onSaveScore(scoreForm,itemMU.id,item.blockName)">-->
+      <!--<div class="col-md-1" style="padding: 30px 4px 4px 40px;font-size: 17px;">{{item.blockName}}</div>-->
+        <!--<div *ngFor="let scoreItem of item.scoreHistories[0]">-->
+          <!--<div class="col-md-2">-->
+            <!--<label>{{scoreItem.year}}</label>-->
+            <!--<input class="form-control"  [(ngModel)]="scoreItem.score" [name]="'A' + scoreItem.year"/>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--<div style="padding-top: 24px;">-->
+        <!--<button type="submit" [disabled]="!scoreForm.dirty || scoreForm.submitted" class="btn btn-primary" >Lưu</button>-->
+      <!--</div>-->
+    <!--</form>-->
+  <!--</div>-->
+  <!--<div style="padding-bottom: 20px;"  class="row" *ngFor="let item of listMajorBlock[itemMU.id]">-->
+    <!--<form #scoreForm="ngForm" (ngSubmit)="onSaveScore(scoreForm,itemMU.id,item)">-->
+      <!--<div class="col-md-1" style="padding: 30px 4px 4px 40px;;font-size: 17px;">{{item}}</div>-->
+      <!--<div class="col-md-2">-->
+        <!--<label>2016</label>-->
+        <!--<input class="form-control" ngModel name="A2016"/>-->
+      <!--</div>-->
+      <!--<div class="col-md-2">-->
+        <!--<label>2017</label>-->
+        <!--<input class="form-control" ngModel name="A2017"/>-->
+      <!--</div>-->
+      <!--<div style="padding-top: 24px;">-->
+        <!--<button type="submit" [disabled]="!scoreForm.dirty" class="btn btn-primary" >Lưu</button>-->
+      <!--</div>-->
+    <!--</form>-->
+  <!--</div>-->
+<!--</div>-->
+<div class="x_content major-group">
+  <form #editForm="ngForm" (ngSubmit)="onSaveMajorUni(editForm)" class="form-horizontal form-label-left">
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngành<span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input disabled name="major" ngModel [ngModel]="majorDetail?.major.majorName" required #major="ngModel" class="form-control">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Số năm học<span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input name="numberOfYear" ngModel [ngModel]="majorDetail?.numberOfYear" #numberOfYear="ngModel" required class="form-control">
+        <div *ngIf="numberOfYear.errors && numberOfYear.touched" class="alert alert-danger">
+          <div [hidden]="!numberOfYear.errors.required">
+            Vui lòng nhập số năm học.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Yêu cầu đầu vào</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea name="requirement" #requirement="ngModel" required ngModel [ngModel]="majorDetail?.requirement" class="form-control"></textarea>
+        <div *ngIf="requirement.errors && requirement.touched" class="alert alert-danger">
+          <div [hidden]="!requirement.errors.required">
+            Vui lòng nhập yêu cầu đầu vào.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Triển vọng nghề nghiệp</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea name="prospects" #prospects="ngModel" required ngModel [ngModel]="majorDetail?.prospects" class="form-control"></textarea>
+        <div *ngIf="prospects.errors && prospects.touched" class="alert alert-danger">
+          <div [hidden]="!prospects.errors.required">
+            Vui lòng nhập triển vọng nghề nghiệp.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea id="summernote" rows="10" style="height: 150px" class="form-control" type="text"></textarea>
+      </div>
+    </div>
+    <!--<div class="ln_solid"></div>-->
+    <div class="form-group" style="text-align: center">
+      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+        <button type="summit" [disabled]="!editForm.valid" class="btn btn-success">Lưu</button>
+      </div>
+    </div>
+  </form>
+  <div class="ln_solid"></div>
+  <h2>Chỉnh sửa điểm cho ngành</h2>
+  <form class="form-horizontal form-label-left">
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Chọn khối</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select2 [data]="listBlock"
+                 [options]="options"
+                 [value]="valueBlock"
+                 (valueChanged)="getValueMajor($event)">
+        </select2>
+      </div>
+    </div>
+    <div class="form-group" *ngFor="let item of currentMajor">
+      <label style="padding-top: 30px" class="control-label col-md-3 col-sm-3 col-xs-12">{{item.blockName}}</label>
+      <div class="row">
+        <form #scoreForm="ngForm">
+          <div *ngFor="let scoreItem of item.scoreHistories[0] | orderBy: '+year'">
+            <div class="col-md-2">
+              <label>{{scoreItem.year}}</label>
+              <input class="form-control" [(ngModel)]="scoreItem.score" [name]="'A' + scoreItem.year"/>
+            </div>
+          </div>
+          <div style="padding-top: 24px;">
+            <button type="submit" (click)="onSaveScore(scoreForm,item.blockName)" [disabled]="!scoreForm.dirty || scoreForm.submitted" class="btn btn-primary">Lưu</button>
+            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteScore" (click)="selectIndex = item.id">Xóa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="form-group" *ngFor="let item of listMajorBlock">
+      <label style="padding-top: 30px" class="control-label col-md-3 col-sm-3 col-xs-12">{{item}}</label>
+      <div class="row">
+        <form #scoreForm="ngForm" (ngSubmit)="onSaveScore(scoreForm,item)">
+          <div class="col-md-2">
+            <label>2016</label>
+            <input type="number" class="form-control" ngModel name="A2016" [required]="true" />
+          </div>
+          <div class="col-md-2">
+            <label>2017</label>
+            <input type="number" class="form-control" ngModel name="A2017" [required]="true"/>
+          </div>
+          <div style="padding-top: 24px;">
+            <button type="submit" [disabled]="!scoreForm.dirty || scoreForm.submitted || scoreForm.invalid" class="btn btn-primary">Lưu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal fade" id="deleteScore" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Xác Nhận</h4>
+      </div>
+      <div class="modal-body">
+        <p>Bạn muốn xoá điểm và khối này của ngành?</p>
+      </div>
+      <div class="modal-footer">
+        <button style="width: 70px" type="button" class="btn btn-danger" id="yes" data-dismiss="modal" (click)="deleteBlockScore()" >Xóa</button>
+        <button style="width: 70px" type="button" class="btn btn-success" data-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+
+
+<header class="header-image">
+  <div class="headline">
+  </div>
+  <div class="headline_bg">
+      <div class="header-container">
+          <h1>Trang Tin Tức</h1>
+        </div>
+  </div>
+</header>
+<div id="main">
+<div class="container">
+  <div class="type-article">
+    <button style="min-width: 45%" type="button" class="btn btn-info" (click)="getListArticle()">Tin Tức Tổng Hợp</button>
+    <button style="min-width: 45%" type="button" *ngIf="this.user"
+            class="btn btn-info"(click)="getYourArticle()">Tin Tức Dành Cho Bạn</button>
+  </div>
+
+  <div *ngIf="listArticle?.length > 0">
+    <div class="featurette"
+       *ngFor="let article of listArticle | paginate: { itemsPerPage:5, currentPage: p }; let odd = odd; let even = even; let fst = first"
+       [ngClass]="{'right-text': odd}">
+    <hr class="featurette-divider">
+    <div *ngIf="article.image">
+      <img [routerLink]="['/article-detail',article.id]" class="featurette-image img-circle img-responsive pull-left"
+           [ngClass]="{'pull-leftt': even}" src="{{article.image}}">
+    </div>
+    <div *ngIf="!article.image">
+      <img [routerLink]="['/article-detail',article.id]" class="featurette-image img-circle img-responsive pull-left"
+           [ngClass]="{'pull-leftt': even}" src="../../../assets/image/image-not-found.png">
+    </div>
+    <h2 [routerLink]="['/article-detail',article.id]" class="featurette-heading">{{article.title}}</h2>
+    <h5><i class="fa fa-clock-o" aria-hidden="true"></i> {{article.createDate | date: 'shortDate'}}</h5>
+
+    <p class="lead">{{article.description}}</p>
+  </div>
+  <div class="text-center"><pagination-controls (pageChange)="p =$event" previousLabel=""
+                                                nextLabel=""></pagination-controls></div>
+  </div>
+  <div *ngIf="listArticle?.length == 0" class="text-center" style="margin-top: 80px">
+
+      <h1 style="color:red;">Không tìm thấy bài phù hợp</h1>
+
+  </div>
+</div>
+</div>

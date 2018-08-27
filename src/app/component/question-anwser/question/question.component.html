@@ -1,0 +1,69 @@
+<div id="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="box box-white" style="min-height: 500px">
+          <div id="mainbar">
+            <div class="subheader bold">
+              <h1 id="h-top-questions">
+                Các câu hỏi
+              </h1>
+            </div>
+            <div id="qlist-wrapper">
+              <div id="question-mini-list">
+                <div class="question-summary narrow"*ngFor="let question of questions | paginate: { itemsPerPage:5, currentPage: p }">
+                  <div class="cp">
+                    <div class="votes">
+                      <div class="mini-counts"><span title="0 votes">{{question.totalAnswer}}</span></div>
+                      <div>trả lời</div>
+                    </div>
+                  </div>
+                  <div class="summary">
+                    <h3><a [routerLink]="['/question-detail', question.id]" class="bold">{{question?.title}}</a></h3>
+                        <ul style="display: table-row">
+                          <li class="tag" *ngFor="let t of question.tags">
+                            {{t.tag.tagName}}
+                          </li>
+                        </ul>
+                    <div class="started">
+                       <span class="">{{question?.lastUpdatedTime | date:'dd-MM-yyyy HH:mm'}}</span>
+                    </div>
+                    <div class="row" style="float: right;padding-right: 50px;">
+                      <img style="width: 100%;max-width: 30px;border-radius: 50%;margin-right: 5px;" [src]="question?.users.image"/>
+                      <span *ngIf="!question?.users.name" class="">{{question?.users.username}}</span>
+                      <span *ngIf="question?.users.name" class="">{{question?.users.name}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <pagination-controls (pageChange)="p =$event" previousLabel=""
+                                     nextLabel=""></pagination-controls>
+              </div>
+              <!--<div *ngFor="let a of question.tags">-->
+                <!--{{a.tag.tagName}}-->
+              <!--</div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="box box-white" style="color: #848d95">
+          <div style="margin-bottom: 10px">
+            <p>Đây là nơi để thảo luận và trao đổi</p>
+            Nếu bạn đang có thắc mắc về vấn đề gì. Thì hãy
+          </div>
+          <div style="text-align: center; margin-bottom: 10px">
+            <a [routerLink]="['/new-question']" class="btn btn-uni-primary">Đặt câu hỏi</a>
+          </div>
+          <div>
+            <div style="color: #f05f40; font-size: 20px; margin-bottom: 10px" class="bold">Quy định về câu hỏi</div>
+            <div>- Trình bày câu hỏi, rõ ràng dễ hiểu</div>
+            <div>- Không dùng những từ ngữ thô tục</div>
+            <div>- Tiêu đề cần thể hiện nội dung của câu hỏi.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

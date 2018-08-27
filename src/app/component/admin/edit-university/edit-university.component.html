@@ -1,0 +1,150 @@
+<div class="x_content">
+  <form #editForm="ngForm" (ngSubmit)="onEdit(editForm)" class="form-horizontal form-label-left">
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã Trường<span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input disabled name="code" ngModel [ngModel]="university?.code" required #code="ngModel" class="form-control">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên Trường<span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input name="name" ngModel [ngModel]="university?.name" #nameUni="ngModel" required class="form-control">
+        <div *ngIf="nameUni.errors && nameUni.touched" class="alert alert-danger">
+          <div [hidden]="!nameUni.errors.required">
+            Vui lòng nhập tên trường
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Loại hình đào tạo<span class="required">*</span></label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select class="form-control" name="train" #train="ngModel" required ngModel [ngModel]="university?.trainSystem?.id">
+          <option value="1">Công lập</option>
+          <option value="2">Dân lập</option>
+        </select>
+        <div *ngIf="train.errors && train.touched" class="alert alert-danger">
+          <div [hidden]="!train.errors.required">
+            Vui lòng nhập loại hình đào tạo
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" type="email" name="email" #email="ngModel"
+               ngModel [ngModel]="university?.email" class="form-control">
+        <div *ngIf="email.errors && email.touched" class="alert alert-danger">
+          <div [hidden]="!email.errors.pattern">
+            Email của bạn không đúng.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Số điện thoại</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input class="form-control" name="phone" ngModel [ngModel]="university?.phone">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Khu Vực</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select2 [data]="listLocation | async"
+                 [value]="university?.location?.id"
+                 (valueChanged)="getValueLocation($event)"></select2>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngành học</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <!--Multiple choice-->
+        <select2 [data]="listMajor"
+                 [options]="options"
+                 [value]="valueMajor"
+                 (valueChanged)="getValueMajor($event)">
+        </select2>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Logo Trường</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <label class="uploader" ondragover="return false;"
+               [class.loaded]="loaded"
+               [style.outlineColor]="dragging ? activeColor : baseColor"
+               (dragenter)="handleDragEnter()"
+               (dragleave)="handleDragLeave()"
+               (drop)="handleDrop($event)">
+
+          <i class="icon fa fa-upload"></i>
+
+          <img
+            [src]="logoSrc"
+            (load)="handleImageLoad()"
+            [class.loaded]="imageLoaded"/>
+
+          <input type="file" name="avtUni" ngModel accept="image/*"
+                 (change)="handleInputChange($event,true)">
+        </label>
+        <img *ngIf="isLoadLogo" class="loading" src="../../../../assets/image/Spinner.gif" height="100"
+             width="100"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh Trường</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <label class="uploader" ondragover="return false;"
+               [class.loaded]="loaded"
+               [style.outlineColor]="dragging ? activeColor : baseColor"
+               (dragenter)="handleDragEnter()"
+               (dragleave)="handleDragLeave()"
+               (drop)="handleDrop($event)"
+               [style.width.%]="imageSrc ? 100 : null">
+
+          <i class="icon fa fa-upload"></i>
+
+          <img
+            [src]="imageSrc"
+            (load)="handleImageLoad()"
+            [class.loaded]="imageLoaded"/>
+
+          <input type="file" name="avtUni" ngModel accept="image/*"
+                 (change)="handleInputChange($event,false)">
+        </label>
+        <img *ngIf="isLoadImage" class="loading" src="../../../../assets/image/Spinner.gif" height="100"
+             width="100"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea id="summernote" rows="10" style="height: 150px" class="form-control" type="text"> </textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Độ ưu tiện</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select class="form-control" name="pri" [ngModel]="university?.priority" ngModel>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="form-group" style="text-align: center">
+      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+        <button type="summit" [disabled]="!editForm.valid" class="btn btn-success">Lưu</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+

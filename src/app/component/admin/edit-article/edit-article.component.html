@@ -1,0 +1,122 @@
+<div class="x_content">
+  <form #editForm="ngForm" (ngSubmit)="onUpdate(editForm)" class="form-horizontal form-label-left">
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Code<span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input required name="code" ngModel [ngModel]="articleById?.code"  #code="ngModel" class="form-control">
+        <div *ngIf="code.errors && (code.touched || editForm.submitted)" class="alert alert-danger">
+          <div [hidden]="!code.errors.required">
+            Vui lòng nhập code
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Tiêu đề<span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <input required name="title" type="text" ngModel [ngModel]="articleById?.title" #title="ngModel" class="form-control">
+        <div *ngIf="title.errors && (title.touched || editForm.submitted)" class="alert alert-danger">
+          <div [hidden]="!title.errors.required">
+            Vui lòng nhập tiêu đề
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả chung</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea placeholder="Mô tả tối đa 100 ký tự" maxlength="250" required rows="3"
+                  [ngModel]="articleById?.description" name="des" #des="ngModel" ngModel class="form-control" type="text"> </textarea>
+        <div *ngIf="des.errors && (des.touched || editForm.submitted)" class="alert alert-danger">
+          <div [hidden]="!des.errors.required">
+            Vui lòng nhập mô tả chung
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Nội dung<span class="required">*</span></label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <textarea name="contents" id="summernote" ngModel="" style="height: 150px" class="form-control" type="text"> </textarea>
+        <div *ngIf="hasError" class="alert alert-danger">
+          <div>
+            Vui lòng nhập nội dung bài báo
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên trường<span class="required">*</span></label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <select2 [data]="listUniNameSelect2| async"
+                    [value]="articleById?.universityId"
+                 (valueChanged)="getValueUniversity($event)">
+        </select2>
+        <!--<div *ngIf="!isCheck && form.submitted" class="alert alert-danger">-->
+          <!--<div [hidden]="isCheck">-->
+            <!--Vui lòng chọn trường-->
+          <!--</div>-->
+        <!--</div>-->
+      </div>
+    </div>
+
+
+    <!--tag-->
+    <div class="form-group">
+      <label style="padding-top: 11px" class="control-label col-md-3 col-sm-3 col-xs-12">Thẻ bài báo</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <tag-input [(ngModel)]="tagArticleById" name="tagMajor"
+                   [onlyFromAutocomplete]="true"
+                   [displayBy]="'majorName'"
+                   [identifyBy]="'id'"
+                   [secondaryPlaceholder]="'Nhập thẻ cho bài báo'">
+          <tag-input-dropdown [showDropdownIfEmpty]="true"
+                              [focusFirstElement]="true"
+                              [displayBy]="'majorName'"
+                              [identifyBy]="'id'"
+                              [autocompleteItems]="valueMajorName">
+            <ng-template let-item="item" let-index="index">
+              <!--({{ index }}) {{ item.id }}:-->
+              {{ item.majorName }}
+            </ng-template>
+          </tag-input-dropdown>
+        </tag-input>
+      </div>
+      <br><br><br><br><br>
+    </div>
+    <!--tag end-->
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh Trường</label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <label class="uploader" ondragover="return false;"
+               [class.loaded]="loaded"
+               [style.outlineColor]="dragging ? activeColor : baseColor"
+               (dragenter)="handleDragEnter()"
+               (dragleave)="handleDragLeave()"
+               (drop)="handleDrop($event)">
+
+          <i class="icon fa fa-upload"></i>
+
+          <img
+            [src]="logoSrc"
+            (load)="handleImageLoad()"
+            [class.loaded]="imageLoaded"/>
+
+          <input type="file" name="avtUni" ngModel accept="image/*"
+                 (change)="handleInputChange($event,false)">
+        </label>
+        <img *ngIf="isLoadImage" class="loading" src="../../../../assets/image/Spinner.gif" height="100"
+             width="100"/>
+      </div>
+    </div>
+
+    <div class="ln_solid"></div>
+    <div class="form-group" style="text-align: center">
+      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+        <button type="summit" class="btn btn-success">Lưu</button>
+      </div>
+    </div>
+  </form>
+</div>

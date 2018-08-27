@@ -1,0 +1,285 @@
+
+<div>
+  <!--//<img src="../../../assets/image/logo.png" height="152" width="200"/>-->
+  <img class="img-major" src="../../../assets/image/baim.jpg"/>
+  <div class="major-title">
+    <h1>{{university?.name}}</h1>
+    <h3>{{majorDetail.majorName}}</h3>
+  </div>
+  <div class="row" style="padding-left: 15px;">
+    <div class="col-md-2 col-sm-1"></div>
+    <!--<div class="col-md-8 col-sm-11" style="padding: 15px">-->
+      <!--<h1>Ahihi</h1>-->
+    <!--</div>-->
+    <div class="col-md-2"></div>
+  </div>
+</div>
+
+
+<div id="main" style="margin-top: 0px;">
+  <!--Major -->
+  <div class="container" id="company-detail">
+    <!--img page-->
+    <div class="row text-center ">
+      <h2 class="uni-title" [routerLink]="['/university',university?.id]">
+        <b>{{university?.name}}</b>
+      </h2>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="company-profile">
+          <div class="box-group-header">
+            <div class="row">
+              <div class="box-group-title col-xs-8"><a><strong>Danh sách ngành học</strong></a></div>
+            </div>
+          </div>
+          <div class="box box-white" *ngFor="let majorGroup of valueMajor | groupBy">
+            <label style="font-size: 18px; color: #f05f40"
+                  [matTooltip]="majorGroup.resources[0].major.groupMajor.name">Khối Ngành  {{majorGroup.name}}</label>
+            <hr class="featurette-divider">
+
+            <a  style="font-size: 14px; color: #333" *ngFor="let resource of majorGroup.resources"
+                (click)="showDetail(resource)"  href="/major-detail/{{resource.major.id}}">{{resource.major.majorName}}<br></a>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <!--Thông Tin Điểm Của Các Khối Ngành-->
+        <div class="company-profile" *ngIf="majorUniversity?.blockMajorUniversities.length != 0">
+          <div class="box-group-header">
+            <div class="row">
+              <div class="box-group-title col-xs-12"><a><strong>Thông Tin Điểm Của Các Khối Ngành</strong></a>
+                <button *ngIf="checkFavoriteMajor == -1 " type="button" class="btn btn-warning pull-right"
+                        (click)="saveFavorite()"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Yêu Thích</button>
+                <button *ngIf="checkFavoriteMajor != -1" type="button" class="btn btn-success pull-right"
+                        (click)="deleteFavorite()" ><i class="fa fa-thumbs-up" aria-hidden="true"></i> Đã Thích</button>
+              </div>
+            </div>
+          </div>
+          <div class="box box-white">
+            <div class="text-dark-gray">
+              <div style="padding-bottom: 20px;">
+                <span style="font-size: 20px; font-weight: 600; color: #f05f40;">Thông tin năm 2016:</span>
+              </div>
+              <table class="table">
+                <thead>
+                <tr>
+                  <td>Khối ngành</td>
+                  <td>Điểm chuẩn</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let i of majorDetail?.blockYear1">
+                  <td>{{i.blockName}}</td>
+                  <td>{{i.score}}</td>
+                </tr>
+                </tbody>
+              </table>
+              <div style="padding-top: 20px; padding-bottom: 20px">
+                <span style="font-size: 20px; font-weight: 600; color: #f05f40;">Thông tin năm 2017:</span>
+              </div>
+              <table class="table">
+                <thead>
+                <tr>
+                  <td>Khối ngành</td>
+                  <td>Điểm chuẩn</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let j of majorDetail?.blockYear2">
+                  <td>{{j.blockName}}</td>
+                  <td>{{j.score}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!--Giới thiệu ngành học-->
+        <div class="company-profile">
+          <div class="box-group-header">
+            <div class="row">
+              <div class="box-group-title col-xs-12">
+                <a><strong>Giới thiệu ngành học: {{majorDetail.majorName}}</strong></a>
+                <!--<button *ngIf="checkFavoriteMajor == -1 " type="button" class="btn btn-warning pull-right"-->
+                        <!--(click)="saveFavorite()"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Yêu Thích</button>-->
+                <!--<button *ngIf="checkFavoriteMajor != -1" type="button" class="btn btn-success pull-right"-->
+                        <!--(click)="deleteFavorite()" ><i class="fa fa-thumbs-up" aria-hidden="true"></i> Đã Thích</button>-->
+              </div>
+            </div>
+          </div>
+          <div class="box box-white" id="company-about">
+            <p><b>Yêu Cầu Đầu Vào: </b></p>         <span>{{majorUniversity?.requirement}}</span>               <br><br>
+            <p><b>Thời gian học: </b>               <span>{{majorUniversity?.numberOfYear}} năm</span></p>      <br>
+            <p><b>Triển vọng nghề nghiệp: </b></p>  <span>{{majorUniversity?.prospects}}</span>                 <br><br>
+            <p><b>Tổng Quan Về Ngành: </b></p>        <div [innerHTML]="majorUniversity?.description"></div>    <br>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="box-group-header">
+          <div class="row">
+            <div class="box-group-title col-xs-8"><a><strong>Đánh giá</strong></a></div>
+          </div>
+        </div>
+        <div *ngIf="!starPoint" class="box box-white" id="no-review-box">
+          <div>
+            <div class="mess text-dark-gray" style="margin-bottom:10px">Hiện chưa có đánh giá nào. Hãy là người đầu
+              tiên đưa ra đánh giá
+            </div>
+            <input type="number" id="rate" name="rate_career_oppotunity" style="display: none;">
+            <div class="rating-container">
+              <div class="stars">
+                <i rating-value="1" class="fa fa-star" style="font-size: 30px; background-color: rgb(204, 204, 204);"></i>
+                <i rating-value="2" class="fa fa-star" style="font-size: 30px; background-color: rgb(204, 204, 204);"></i>
+                <i rating-value="3" class="fa fa-star" style="font-size: 30px; background-color: rgb(204, 204, 204);"></i>
+                <i rating-value="4" class="fa fa-star" style="font-size: 30px; background-color: rgb(204, 204, 204);"></i>
+                <i rating-value="5" class="fa fa-star" style="font-size: 30px; background-color: rgb(204, 204, 204);"></i>
+              </div>
+              <span>Đánh giá của bạn về trường này?</span></div>
+          </div>
+          <br>
+        </div>
+        <div *ngIf="starPoint" class="box box-white" id="review-box">
+          <div class="row">
+            <div class="col-md-4" style="float: left">
+              <div class="radial-progress" [attr.data-score]="recommentPoint">
+                <div class="circle">
+                  <div class="mask full">
+                    <div class="fill"></div>
+                  </div>
+                  <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                  </div>
+                  <div class="shadow"></div>
+                </div>
+                <div class="inset">
+                  <div class="percentage">
+                    <div class=""><span>{{recommentPoint}}%</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="review-overall-text text-dark-gray">Sẵn sàng giới thiệu cho bạn bè</div>
+            </div>
+          </div>
+          <div class="row rating-overall">
+            <div class="col-xs-9">
+              <label class="text-dark-gray">Đánh giá chung</label>
+              <div>
+                <ng-template #t let-fill="fill">
+                  <span *ngIf="fill === 100" class="star-star-rating full-star-rating">★</span>
+                  <span *ngIf="fill === 0" class="star-star-rating">★</span>
+                  <span *ngIf="fill < 100 && fill > 0" class="star-star-rating">
+    <span class="half-star-star-rating" [style.width.%]="fill">★</span>★
+  </span>
+                </ng-template>
+                <ngb-rating [(rate)]="totalStar" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <span class="overall-rate">{{totalStar | number:'1.0-1'}}</span>
+            </div>
+          </div>
+          <div class="row rating rating-small">
+            <div class="col-xs-9">
+              <label class="text-dark-gray">Trình độ giảng dạy</label>
+              <div  class="star-rating-small" style="margin-top: 5px;">
+                <ngb-rating [(rate)]="showStarsTeaching" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <span class="score-rate">{{showStarsTeaching | number:'1.0-1'}}</span>
+            </div>
+          </div>
+          <div class="row rating rating-small">
+            <div class="col-xs-9">
+              <label class="text-dark-gray">Cơ hội nghề nghiệp</label>
+              <div  class="star-rating-small" style="margin-top: 5px;">
+                <ngb-rating [(rate)]="showStarCareer" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <span class="score-rate">{{showStarCareer | number:'1.0-1'}}</span>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <!--Danh gia Nganh-->
+
+        <div class="box box-white" *ngIf="!checkReviewUniMajor && user">
+          <div id="review-form">
+            <form #fReview="ngForm" (ngSubmit)="onSubmit(fReview)">
+              <div class="form-group">
+
+                  <div class="rate-block">
+                    <label class="rate-title" style="margin-top: 15px;">Trình độ giảng dạy</label>
+                    <div class="star-rating" style="margin-top: 15px;">
+                      <rating [required]="true" [(ngModel)]="starsTeaching"
+                              name="starsTeaching"
+                              [max]="5" style="color: #f05f40;">
+                      </rating>
+                    </div>
+                  </div>
+
+                  <div class="rate-block">
+                    <label class="rate-title" style="margin-top: 15px;">Cơ hội nghề nghiệp</label>
+                    <div class="star-rating" style="margin-top: 15px;">
+                      <rating [required]="true" [max]="5" name="starCareer" [(ngModel)]="starCareer" style="color: #f05f40;">
+                      </rating>
+                    </div>
+                  </div>
+
+                <div *ngIf="fReview.submitted && fReview.invalid" class="alert alert-danger">
+                  <div>
+                    Vui lòng đánh giá sao cho tất cả
+                  </div>
+                </div>
+              </div>
+              <div class="ask-recommend">
+                <p><strong class="text-dark-gray">Bạn có muốn tham gia <span style="color:#f05f40">{{university?.name}}</span></strong></p>
+                <mat-radio-group ngModel="1" name="radio">
+                  <mat-radio-button value="1" [checked]="true">Có</mat-radio-button>
+                  <mat-radio-button value="0">Không</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="text-center" style="margin-top: 15px">
+                <button class="btn btn-uni-primary" type="submit">Gửi đánh giá</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="box box-white" *ngIf="checkReviewUniMajor" style="text-align: center">
+          <a style="color: #0BA25E"><i class="fa fa-check fa-2x" aria-hidden="true" style="margin-right: 10px"></i>Đã Đánh Giá</a>
+        </div>
+        <!--End Danh gia Nganh-->
+      </div>
+    </div>
+  </div>
+
+
+  <div id="company-fixed-box" class="col-xs-12" style="display:none">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-xs-12">
+          <div class="fixed-box-logo pull-left" *ngIf="university?.logo">
+            <img src="{{university?.logo}}" alt="">
+          </div>
+          <div id="fixed-box-name">{{majorDetail?.majorName}}</div>
+        </div>
+        <div class="col-md-3 col-md-offset-1 col-xs-12 text-center">
+          <!--<a [routerLink]="['/new-review',id]">-->
+            <!--<button class="btn btn-uni-primary pull-right">Đánh giá</button>-->
+          <!--</a>-->
+        </div>
+        <div style="clear:both"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,191 @@
+<div class="nav-md">
+<div class="container body">
+  <div class="main_container">
+    <div class="col-md-3 left_col">
+      <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;padding-left: 12px;">
+          <a class="navbar-brand" href="/home">
+            <img src="../../../assets/image/logo2.png" height="45" />
+          </a>
+        </div>
+
+        <div class="clearfix"></div>
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+          <div class="profile_pic">
+            <img src="{{user.image}}" class="img-circle profile_img">
+          </div>
+          <div class="profile_info">
+            <span>Welcome,</span>
+            <h2 style="text-transform: uppercase">{{user.name}}</h2>
+          </div>
+        </div>
+        <!-- /menu profile quick info -->
+
+        <br />
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+          <div class="menu_section">
+            <h3>General</h3>
+            <ul class="nav side-menu">
+              <li><a routerLink="list-university"><i class="fa fa-home"></i> Quản Lý Trường <span class="fa fa-chevron-right"></span></a></li>
+              <li><a routerLink="add-university"><i class="fa fa-edit"></i> Thêm Trường <span class="fa fa-chevron-right"></span></a></li>
+              <li>
+                <a routerLink="approve-reivew"><i class="fa fa-desktop"></i> Duyệt đánh giá
+                  <span *ngIf="numberOfReview != 0" class="badge bg-green">{{numberOfReview}}</span>
+                  <span class="fa fa-chevron-right"></span></a>
+              </li>
+              <li>
+                <a routerLink="approve-question"><i class="fa fa-question-circle-o"></i> Duyệt câu hỏi
+                  <span *ngIf="numberOfQuestion != 0" class="badge bg-green">{{numberOfQuestion}}</span>
+                  <span class="fa fa-chevron-right"></span></a>
+              </li>
+              <li><a routerLink="list-report"><i class="fa fa-exclamation-triangle"></i> Báo Cáo
+                <span *ngIf="numberOfReport != 0" class="badge bg-green">{{numberOfReport}}</span>
+                <span class="fa fa-chevron-right"></span></a></li>
+              <!--<li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-right"></span></a></li>-->
+              <!--<li><a><i class="fa fa-bar-chart-o"></i> Cài Đặt <span class="fa fa-chevron-right"></span></a></li>-->
+              <!--<li><a><i class="fa fa-clone"></i> Thùng Rác <span class="fa fa-chevron-right"></span></a></li>-->
+              <li><a routerLink="list-article"><i class="fa fa-newspaper-o"></i> Quản Lý Bài Báo <span class="fa fa-chevron-right"></span></a></li>
+              <li><a routerLink="add-article"><i class="fa fa-plus-square"></i> Thêm Bài Báo <span class="fa fa-chevron-right"></span></a></li>
+
+            </ul>
+          </div>
+          <!--<div class="menu_section">-->
+            <!--<h3>Live On</h3>-->
+            <!--<ul class="nav side-menu">-->
+              <!--<li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-right"></span></a></li>-->
+              <!--<li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-right"></span></a></li>-->
+              <!--<li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-right"></span></a></li>-->
+              <!--<li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>-->
+            <!--</ul>-->
+          <!--</div>-->
+        </div>
+      </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+      <div class="nav_menu">
+        <nav>
+          <div class="nav toggle">
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+          </div>
+
+          <ul class="nav navbar-nav navbar-right">
+            <!--<li class="">-->
+              <!--<a class="user-profile ">-->
+                <!--<img src="{{user.image}}" alt="">{{user.name}}-->
+                <!--<span class=" fa fa-angle-down"></span>-->
+              <!--</a>-->
+            <!--</li>-->
+            <!--<li role="presentation" class="dropdown">-->
+              <!--<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">-->
+                <!--<i class="fa fa-envelope-o"></i>-->
+                <!--<span class="badge bg-green">6</span>-->
+              <!--</a>-->
+              <!--<ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">-->
+                <!--<li>-->
+                  <!--<a>-->
+                    <!--<span class="image"><img  alt="Profile Image" /></span>-->
+                    <!--<span>-->
+                          <!--<span>John Smith</span>-->
+                          <!--<span class="time">3 mins ago</span>-->
+                        <!--</span>-->
+                    <!--<span class="message">-->
+                          <!--Film festivals used to be do-or-die moments for movie makers. They were where...-->
+                        <!--</span>-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a>-->
+                    <!--<span class="image"><img alt="Profile Image" /></span>-->
+                    <!--<span>-->
+                          <!--<span>John Smith</span>-->
+                          <!--<span class="time">3 mins ago</span>-->
+                        <!--</span>-->
+                    <!--<span class="message">-->
+                          <!--Film festivals used to be do-or-die moments for movie makers. They were where...-->
+                        <!--</span>-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a>-->
+                    <!--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>-->
+                    <!--<span>-->
+                          <!--<span>John Smith</span>-->
+                          <!--<span class="time">3 mins ago</span>-->
+                        <!--</span>-->
+                    <!--<span class="message">-->
+                          <!--Film festivals used to be do-or-die moments for movie makers. They were where...-->
+                        <!--</span>-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<a>-->
+                    <!--<span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>-->
+                    <!--<span>-->
+                          <!--<span>John Smith</span>-->
+                          <!--<span class="time">3 mins ago</span>-->
+                        <!--</span>-->
+                    <!--<span class="message">-->
+                          <!--Film festivals used to be do-or-die moments for movie makers. They were where...-->
+                        <!--</span>-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                  <!--<div class="text-center">-->
+                    <!--<a>-->
+                      <!--<strong>See All Alerts</strong>-->
+                      <!--<i class="fa fa-angle-right"></i>-->
+                    <!--</a>-->
+                  <!--</div>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</li>-->
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+      <div class="">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>{{title}}</h3>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
+            <div class="x_panel">
+              <div class="x_content">
+                <div>
+                <!-- start project list -->
+                <router-outlet></router-outlet>
+                <!-- end project list -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer>
+      <div class="pull-right">
+        Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+  </div>
+</div>
+</div>

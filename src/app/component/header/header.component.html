@@ -1,0 +1,99 @@
+<header>
+  <nav id="nav-home" class="navbar navbar-default navbar-fixed-top">
+    <div style="min-height: 80px" class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+          aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" routerLink="/home">
+          <img src="../assets/image/UniLogo.png" height="45" />
+        </a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="text-li"><a routerLink="/home">Trang chủ</a>
+            <li class="text-li"><a routerLink="/article">Tin tức</a>
+              <li class="text-li"><a routerLink="/search-university">Tìm trường</a></li>
+              <li class="text-li"><a routerLink="/mbti-test">MBTI</a></li>
+              <li class="text-li"><a routerLink="/question">Câu hỏi</a></li>
+              <a id="linkFake" [hidden]="true" routerLink="/profile"></a>
+              <a id="linkFakeFavorite" [hidden]="true" routerLink="/favorite"></a>
+              <a id="linkFakeQuestion" [hidden]="true" [routerLink]="['/your-question']"></a>
+              <div *ngIf="count && count != 0" class="answer-notify" [routerLink]="['/your-question']">
+                <span class="badge bg-red">{{count}}</span>
+              </div>
+              <li *ngIf="user" class="dropdown">
+                <a class="dropdown-toggle avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                  <img src="{{user.image}}">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a *ngIf="user.role==='ADMIN'" routerLink="/admin">{{user.name}}</a>
+                    <!--role admin-->
+                    <a *ngIf="user.role==='USER'">{{user.name}}</a>
+                    <!--role user-->
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li><a (click)="clickLink()">Chỉnh sửa thông tin</a></li>
+                  <li><a (click)="clickLinkFavorite()">Danh sách yêu thích</a></li>
+                  <li><a *ngIf="user.role==='USER'" (click)="clickLinkQuestion()">Câu hỏi của bạn</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a (click)="logout(user.provider)">Thoát tài khoản</a></li>
+                </ul>
+              </li>
+              <li class="text-li" *ngIf="!user">
+                <a class="cursor-pointer" data-toggle="modal" data-target="#myModal">
+                  <span class="glyphicon glyphicon-log-in"> Đăng nhập</span>
+                </a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!--<app-home id="home"></app-home>-->
+<router-outlet></router-outlet>
+<footer class="">
+  <div id="contact_info">
+    <div class="info_wrapper">
+      <div id="left_info">
+        <ul>
+          <div>
+            <li>&copy; Liên hệ để đăng tin tuyển dụng tại Hồ Chí Minh: (+84) 977 460 519 - Hà Nội: (+84) 964 618 859 - Email:
+              love@fpt.edu.vn
+            </li>
+          </div>
+          <div>
+            <li><a href="/">Liên Hệ</a></li>
+            <li><a href="/">SITE USE</a></li>
+            <li><a href="/">TERMS</a></li>
+            <li><a href="/">FAQS</a></li>
+            <li><a href="/">CONTACT</a></li>
+            <li><a href="/">SITE BY Uni</a></li>
+          </div>
+        </ul>
+      </div>
+
+
+    </div>
+    <div class="info_wrapper">
+      <div id="right_info">
+        <ul>
+          <li><a href="/">SOCIAL HUB</a></li>
+          <li>
+            <a href="/"><i style="color: blue" class="fa fa-facebook-square" aria-hidden="true"></i></a>
+          </li>
+          <li><a href="/"><i style="color: #1da1f2" class="fa fa-twitter" aria-hidden="true"></i></a></li>
+          <li><a href="/"><i style="color: #ff7727" class="fa fa-google-wallet" aria-hidden="true"></i></a></li>
+          <li><a href="/"><i style="color: red" class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+          <li><a href="/"><i style="color: pink" class="fa fa-instagram" aria-hidden="true"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

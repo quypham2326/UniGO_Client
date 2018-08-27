@@ -1,0 +1,105 @@
+<div id="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="box box-white">
+          <div class="row">
+            <div class="box-title text-highlight" style="text-align: center">Thay đổi thông tin tài khoản</div>
+          </div>
+        </div>
+        <div class="box-group">
+          <div class="box-group-body">
+            <div  class="box box-white clearfix">
+              <form  id="form-user-detail"  #fDetail="ngForm" class="" (ngSubmit)="onSubmit(fDetail)">
+                <div class="form-group text-center">
+                  <label class="uploader" ondragover="return false;">
+                    <i class="icon fa fa-upload"></i>
+                    <img [src]="imageSrc"/>
+                    <input type="file" name="avtUni" accept="image/*"
+                           (change)="handleInputChange($event)">
+                    <img *ngIf="isLoadImage" class="loading" src="../../../../assets/image/Spinner.gif" height="50"
+                         width="50"/>
+                  </label>
+                </div>
+                <div  class="form-group">
+                  <label  class="col-sm-4 control-label text-dark-gray" style="text-align:center; margin-top: 10px">Tên
+                    Người Dùng</label>
+                  <div class="col-sm-6" style="margin-bottom: 5px">
+                    <input  class="form-control" name="name" #name="ngModel" type="text" [ngModel]="user.name" required>
+                    <div *ngIf="name.errors && name.touched" class="alert alert-danger">
+                      <div [hidden]="!name.errors.required">
+                        Vui lòng nhập tên
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div  class="form-group">
+                  <label  class="col-sm-4 control-label text-dark-gray" style="text-align:center; margin-top: 30px">Địa
+                    Chỉ Email</label>
+                  <div  class="col-sm-6" style="margin-top: 22px">
+                    <input  class="form-control" name="email" #email="ngModel" type="email" [ngModel]="user.email" required>
+                    <div *ngIf="email.errors && email.touched" class="alert alert-danger">
+                      <div [hidden]="!email.errors.required">
+                        Vui lòng nhập email
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div  class="form-group">
+                  <label class="col-sm-4 control-label text-dark-gray" style="text-align:center; margin-top: 30px">Mật
+                    khẩu mới</label>
+                  <div  class="col-sm-6" style="margin-top: 22px">
+                    <input  class="form-control" name="password" ngModel #password="ngModel" type="password">
+                  </div>
+                </div>
+                <div  class="form-group">
+                  <label  class="col-sm-4 control-label text-dark-gray" style="text-align:center; margin-top: 30px">Nhập
+                    lại mật khẩu mới</label>
+                  <div  class="col-sm-6" style="margin-top: 20px">
+                    <input validateEqual="password" class="form-control" name="passwordConfirm" ngModel #confirm="ngModel" type="password" required>
+                    <div *ngIf="confirm.errors && confirm.touched && password.value" class="alert alert-danger">
+                      <div [hidden]="!confirm.errors.required">
+                        Vui lòng nhập password
+                      </div>
+                      <div [hidden]="confirm.valid || !confirm.value">
+                        Password xác nhận không đúng
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center col-sm-8" style="    margin-top: 20px;width: 100%;">
+                  <button  class="btn btn-uni-primary" type="summit" [disabled]="!fDetail.valid">Cập nhật</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--slide bên phải-->
+      <div class="col-sm-4" id="sidebar">
+        <div class="box box-white text-center-sm">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="profile-avatar">
+                <img src="{{user.image}}" alt="">
+              </div>
+            </div>
+            <div class="col-md-8" style="margin-top: 15px">
+              <div>Chào bạn trở lại,</div>
+              <h4 class="profile-fullname">
+               {{user.name}}
+              </h4>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-10">
+              <p>Email: {{user.email}}</p>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

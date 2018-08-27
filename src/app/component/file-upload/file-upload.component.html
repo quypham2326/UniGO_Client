@@ -1,0 +1,23 @@
+<label class="uploader" ondragover="return false;"
+       [class.loaded]="loaded"
+       [style.outlineColor]="dragging ? activeColor : baseColor"
+       (dragenter)="handleDragEnter()"
+       (dragleave)="handleDragLeave()"
+       (drop)="handleDrop($event)"
+       [style.width.%]="value ? 100 : null">
+
+  <i class="icon fa fa-upload"
+     [style.color]="dragging
+            ? ((imageSrc.length > 0) ? overlayColor : activeColor)
+            : ((imageSrc.length > 0) ? overlayColor : baseColor)"></i>
+
+  <img
+    [src]="imageSrc"
+    (load)="handleImageLoad()"
+    [class.loaded]="imageLoaded"/>
+
+  <input type="file" name="avtUni" accept="image/*"
+         (change)="handleInputChange($event)">
+</label>
+<img *ngIf="isLoading" class="loading" src="../../../../assets/image/Spinner.gif" height="100"
+     width="100"/>

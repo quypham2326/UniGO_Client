@@ -1,0 +1,235 @@
+@color-0: white;
+@color-1: #652D34;
+@color-2: #929261;
+@color-3: #FD8814;
+@color-4: #f05f40;
+@color-5: #D2442C;
+
+
+#hero {
+  background-image: url('../../../assets/image/eli-francis.jpg');
+  background-size: cover;
+  background-position: center -90px;
+  background-repeat: no-repeat;
+  height: 600px;
+  overflow: hidden;
+  .container{
+    position: relative;
+  }
+}
+#no-cv {
+  background-image: url('../../../assets/image/oval_left.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 510px;
+  height: 510px;
+  position: absolute;
+  top: 10px;
+  left: -96px;
+  padding: 120px 135px 0px 75px;
+  color: #fff;
+  text-align: left;
+}
+#no-cv h2 {
+  font-size: 30px;
+  line-height: 40px;
+  text-transform: uppercase;
+  margin: 0 0 30px 0;
+}
+#no-cv p {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 40px;
+}
+#no-cv a {
+  color: #0BA25E;
+}
+.btn-cta {
+  color: #0E5535;
+  font-weight: bold;
+  background-color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  text-transform: uppercase;
+  display: inline-block;
+}
+.btn-cta i {
+  padding: 15px;
+  background-color: #eee;
+  font-size: 16px;
+}
+.btn-cta span {
+  padding: 15px;
+  text-align: center;
+}
+#have-cv {
+  background-image: url('../../../assets/image/oval_right.png');
+  background-repeat: no-repeat;
+  width: 800px;
+  height: 800px;
+  position: absolute;
+  top: 2px;
+  right: -195px;
+  padding: 190px 160px 0px 295px;
+  text-align: right;
+  background-size: cover;
+}
+#have-cv h2 {
+  font-size: 30px;
+  line-height: 40px;
+  text-transform: uppercase;
+  margin: 0 0 30px 0;
+}
+#have-cv p {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 40px;
+}
+#have-cv a {
+  color: #0BA25E;
+}
+.btn-cta i {
+  padding: 15px;
+  background-color: #eee;
+  font-size: 16px;
+}
+.btn-cta span {
+  padding: 15px;
+  text-align: center;
+}
+
+#services{
+  padding: 100px 0;
+}
+.section-heading {
+  margin-top: 0;
+}
+.service-box {
+  max-width: 400px;
+  margin: 50px auto 0;
+}
+.service-box p {
+  margin-bottom: 0;
+}
+.text-primary {
+  color: #f05f40!important;
+}
+hr {
+  max-width: 100px;
+  border-width: 3px;
+  border-color: #f05f40;
+  margin: auto;
+}
+@media (max-width: 1440px) {
+
+}
+@media (max-width: 768px){
+  #no-cv {
+    width: 400px;
+    height: 400px;
+    top: -80px;
+    left: -53px;
+    padding: 110px 80px 0px 75px;
+  }
+  #have-cv {
+    width: 500px;
+    height: 500px;
+    top: 140px;
+    right: -158px;
+    padding: 60px 160px 0px 100px;
+    background-size: cover;
+  }
+}
+
+//Top major
+
+.row#news-uni{
+  border-top: 2px #666666;
+  margin: 50px;
+  margin-right: 150px;
+  margin-left: 150px;
+}
+
+#news-uni{
+  @media (min-width: 1200px){
+    .col-lg-4{
+      //border: 0.5px solid @color-2;
+      height: 350px;
+    }
+  }
+  img{
+    height: 170px;
+    width: 170px;
+  }
+}
+.text-dark-gray li:hover{
+  transition: 0.2s;
+  transform: scale(1.02);
+  background: #C83F19;
+  color: white;
+  cursor:pointer;
+}
+.text-dark-gray li:hover{
+  transition: 0.2s;
+  transform: scale(1.02);
+  background: #C83F19;
+  color: white;
+  cursor:pointer;
+}
+.active {
+  background: #C83F19;
+  color: white;
+}
+.btn-success{
+  height: 80%;
+  border: none;
+  background-color: @color-0;
+  border: 1px solid @color-4;
+  color: @color-4;
+}
+.btn:hover {
+  background-color: @color-4;
+  //border: 2px solid #eea236;
+  color: @color-0;
+}
+.list-major {
+  font-size: 15px;
+  margin: 5px auto;
+  display: inline-block;
+  border: 1px solid #d5d5d5;
+  padding: 5px 15px;
+  border-radius: 7px;
+  margin-right: 7px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+.thumbnail{
+  border-color: white;
+  padding-bottom: 0px;
+  margin-top: 9px;
+}
+
+.see-more{
+  float: right;
+  margin-right: 30px;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.see-more:hover{
+  cursor: pointer;
+}
+
+.hero-feature{
+  img {
+    height: 210px;
+    width: 210px;
+    padding-top: 30px;
+  }
+  &:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #333;
+    box-shadow: 0 0 5px 1px #bcbcbc;
+  }
+}

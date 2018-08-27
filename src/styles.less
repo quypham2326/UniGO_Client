@@ -1,0 +1,274 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@color-uni-primary: #f05f40;
+body {
+    padding-right: 0px !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: @color-uni-primary;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: @color-uni-primary;
+}
+
+.navbar-header {
+    min-height: 80px;
+}
+
+.navbar-default {
+    background-color: white !important;
+}
+
+//Major mbti page
+.text-highlight {
+    color: @color-uni-primary;
+}
+
+.btn-uni-primary {
+    background-color: @color-uni-primary;
+    color: white;
+}
+
+#main {
+    padding-top: 100px;
+    background-color: #f6f6f6;
+    padding-bottom: 30px;
+}
+
+a:focus,
+a:hover {
+    color: @color-uni-primary;
+}
+
+.box {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.box-white {
+    background-color: white;
+}
+
+.box-group-header {
+    padding: 15px 0;
+}
+
+.box-group-title {
+    font-size: 18px;
+    line-height: 24px;
+    a {
+        color: #4a4a4a;
+    }
+}
+
+.text-dark-gray {
+    color: #666;
+}
+
+.hr {
+    position: relative;
+    display: block;
+    height: 0;
+    width: 100%;
+    margin: 14px 0;
+    border-top: 1px #ccc solid;
+    text-align: center;
+    padding-bottom: 8px;
+}
+
+#login-form {
+    .modal-body {
+        button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 12px 12px;
+        }
+        .hr {
+            span {
+                display: inline-block;
+                position: relative;
+                top: -0.70em;
+                padding: 2px 10px;
+                margin: 0 auto;
+                background-color: white;
+                line-height: 1em;
+                text-align: center;
+            }
+        }
+        input {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+        min-width: 750px;
+        width: 96%;
+    }
+}
+
+//Major-detail
+@media (min-width: 992px) {
+    .container {
+        max-width: 1100px;
+    }
+}
+
+@media (min-width: 1200px) {}
+
+button {
+    outline: none;
+    &:hover {
+        border-color: @color-uni-primary;
+        background-color: white;
+        color: @color-uni-primary;
+    }
+}
+
+:focus::-webkit-input-placeholder {
+    color: transparent
+}
+
+/*Google Chrome */
+
+.ng2complete {
+    input {
+        padding: 5px;
+        font-size: 15px;
+        outline: none;
+    }
+    .completer-dropdown {
+        font-size: 15px;
+        width: 95% !important;
+    }
+    .completer-selected-row {
+        background-color: #FD8814 !important;
+    }
+    .completer-row {
+        width: 100% !important;
+    }
+}
+
+span {
+    outline: none;
+}
+
+.major .select2-container {
+    min-width: 289px;
+}
+
+.location .select2-container {
+    min-width: 199px;
+}
+
+.university .select2-container {
+    min-width: 505px;
+}
+
+.major-group {
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+        pointer-events: none;
+    }
+}
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+    pointer-events: none;
+}
+
+.select2-container--default .select2-selection--single {
+    padding: 0;
+    width: 100%;
+}
+
+.select2-container .select2-selection--multiple {
+    min-width: 300px;
+    width: fit-content;
+}
+
+.search-page {
+    .select2-container .select2-selection--single {
+        height: auto;
+        padding: 5px;
+    }
+}
+
+// Pagination Search Page
+.ngx-pagination {
+    margin-top: 1rem;
+    font-size: 14px;
+    text-align: center;
+    padding: 0 !important;
+}
+
+.ngx-pagination li {
+    padding-right: 3px;
+    border-radius: 5px !important;
+}
+
+
+.ngx-pagination li a {
+    text-decoration: none;
+}
+
+.ngx-pagination li a:active {
+    // background-color: #f05f40;
+    border-radius: 5px;
+}
+
+.ngx-pagination li a:focus {
+    outline: 0;
+}
+
+.ngx-pagination li a:hover {
+    // background-color: #f05f40;
+    border-radius: 5px;
+}
+
+.ngx-pagination .current {
+    background: white !important;
+    border: 1px solid #f05f40;
+    color: #f05f40 !important;
+    border-radius: 5px;
+}
+
+// .ngx-pagination .pagination-next a::after,
+// .ngx-pagination .pagination-next.disabled::after {
+//     display: none !important;
+// }
+// .ngx-pagination .pagination-previous a::before,
+// .ngx-pagination .pagination-previous.disabled::before {
+//     display: none !important;
+// }
+.loading {
+    position: absolute;
+    left: 35px;
+    top: 28px;
+    background: transparent;
+}
+
+.btn-topcv-gray:hover,
+.btn-topcv-gray:focus,
+.btn-topcv-gray:active {
+    color: gray;
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.btn-topcv-gray {
+    color: gray;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.btn-group-sm>.btn,
+.btn-sm {
+    padding: 5px 10px;
+}
+
+.bold {
+    font-weight: bold;
+}

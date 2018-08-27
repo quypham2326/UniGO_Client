@@ -1,0 +1,51 @@
+<div>
+  <!--<button class="btn btn-secondary add-news"><i class="fa fa-plus"></i> Thêm Bài Báo</button>-->
+  <table class="table" id="myTable">
+    <thead>
+    <tr>
+      <th style="width: 1%">STT</th>
+      <th style="width: 7%">Code</th>
+      <th style="width: 20%">Tiêu đề</th>
+      <th style="width: 20%">Ngày đăng</th>
+      <th style="width: 20%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let article of listArticle | paginate: { itemsPerPage:10, currentPage: p }; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{article.code}}</td>
+      <td style="white-space: nowrap;">
+        <a>{{article.title}}</a>
+      </td>
+      <td>
+        {{article.createDate | date:'shortDate'}}
+      </td>
+      <td>
+        <a [routerLink]="['/admin/edit-article',article.id]" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Sửa </a>
+        <a class="btn btn-danger btn-xs" data-toggle="modal" id="id-button" data-target="#myModal" (click)="selectIndex = article.id">
+          <i class="fa fa-trash-o"></i> Xoá </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="text-center"><pagination-controls (pageChange)="p =$event" previousLabel="" nextLabel=""></pagination-controls></div>
+</div>
+
+<!--Modal-->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Xác Nhận</h4>
+      </div>
+      <div class="modal-body">
+        <p>Bạn muốn xoá bài báo này</p>
+      </div>
+      <div class="modal-footer">
+        <button style="width: 70px" type="button" class="btn btn-danger" id="yes" data-dismiss="modal"(click)="deleteNews()">Xoá</button>
+        <button style="width: 70px" type="button" class="btn btn-success" data-dismiss="modal">Huỷ</button>
+      </div>
+    </div>
+  </div>
+</div>

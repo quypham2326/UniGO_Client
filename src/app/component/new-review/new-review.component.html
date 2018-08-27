@@ -1,0 +1,117 @@
+<div id="main">
+  <div class="container" id="review-all">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="box-group-header">
+          <div class="row">
+            <div class="box-group-title col-xs-12 text-highlight bold">Đánh giá {{university?.name}}</div>
+          </div>
+        </div>
+        <div class="box box-white">
+          <div id="review-form">
+            <form #fReview="ngForm" (ngSubmit)="onSubmit(fReview)">
+              <div class="form-group">
+                <label for="review-title">Tiêu đề</label>
+                <input ngModel type="text" class="form-control" required
+                       id="review-title" name="title" #title="ngModel" maxlength="100"
+                       placeholder="Tóm tắt đánh giá của bạn. Ví dụ: Môi trường học tập thân thiện hoặc Tự do cá nhân được tôn trọng">
+                <div *ngIf="title.errors && (title.touched || fReview.submitted)" class="alert alert-danger">
+                  <div [hidden]="!title.errors.required">
+                    Vui lòng nhập tiêu đề
+                  </div>
+                  <div [hidden]="!title.errors.maxlength">
+                    Tối đa 100 ký tự. Bạn đã nhập nhiều hơn.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Đánh giá của bạn</label>
+                <textarea ngModel id="summernote" #content="ngModel" type="text" class="form-control" name="description"></textarea>
+                <div *ngIf="isCheck" class="alert alert-danger">
+                  <div [hidden]="!isCheck">
+                    Tối thiểu 100 ký tự và tối đa 400 ký tự
+                  </div>
+                </div>
+                <!--<h5 id="maxContentPost" style="text-align:right;color: gray;"></h5>-->
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6 col-xs-12 rate-block">
+                    <label class="rate-title">Trình độ giảng dạy</label>
+                    <div class="star-rating">
+                      <rating [required]="true" [(ngModel)]="starsTeaching"
+                              name="starsTeaching"
+                              [max]="5" style="color: #f05f40;">
+                      </rating>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xs-12 rate-block">
+                    <label class="rate-title">Cơ sở vật chất</label>
+                    <div class="star-rating">
+                      <rating [required]="true" [(ngModel)]="starsFacilities"
+                              name="starsFacilities"
+                              [max]="5" style="color: #f05f40;">
+                      </rating>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xs-12 rate-block">
+                    <label class="rate-title">Công tác sinh viên</label>
+                    <div class="star-rating">
+                      <rating [required]="true" [max]="5" name="starCare" [(ngModel)]="starCare" style="color: #f05f40; outline: none">
+                      </rating>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xs-12 rate-block">
+                    <label class="rate-title">Hoạt động xã hội</label>
+                    <div class="star-rating">
+                      <rating [required]="true" [max]="5" name="starSocieties" [(ngModel)]="starSocieties" style="color: #f05f40;">
+                      </rating>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xs-12 rate-block">
+                    <label class="rate-title">Cơ hội nghề nghiệp</label>
+                    <div class="star-rating">
+                      <rating [required]="true" [max]="5" name="starCareer" [(ngModel)]="starCareer" style="color: #f05f40;">
+                      </rating>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="fReview.submitted && fReview.invalid" class="alert alert-danger">
+                  <div>
+                    Vui lòng đánh giá sao cho tất cả
+                  </div>
+                </div>
+              </div>
+              <div class="ask-recommend">
+                <p><strong class="text-dark-gray">Bạn sẵn sàng giới thiệu <span style="color:#f05f40">{{university?.name}}</span> cho bạn bè chứ?</strong></p>
+                <mat-radio-group ngModel="1" name="radio">
+                    <mat-radio-button value="1" [checked]="true">Có</mat-radio-button>
+                    <mat-radio-button value="0">Không</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="text-center"><button class="btn btn-uni-primary"
+                                               type="submit">Gửi đánh giá</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col xs-12">
+        <div class="box box-white text-dark-gray" style="margin-top: 54px">
+          <div>Cảm ơn bạn đã đóng góp ý kiến về trường đại học. Ý kiến của bạn sẽ giúp ích cho những người tìm trường.</div>
+          <br>
+          <div>
+            <p>Bản đánh giá của bạn được kiểm duyệt trước khi đưa ra cộng đồng. Những hướng dẫn dưới đây sẽ giúp cho đánh giá của bạn tránh bị từ chối:</p>
+            <div class="small-tips">
+              <ul>
+                <li>Viết từ chính những trải nghiệm thực tế của bản thân</li>
+                <li>Viết sự thật, tránh những lời lẽ mang tính chất đe dọa, thô tục, thiếu văn hóa</li>
+                <li>Tôn trọng quyền bảo mật, không đưa ra thông tin cá nhân, bí mật thương mại</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

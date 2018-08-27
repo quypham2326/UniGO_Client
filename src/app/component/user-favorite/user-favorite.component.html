@@ -1,0 +1,31 @@
+<div id="main">
+  <div class="container">
+    <div class="box box-white">
+      <h3 class="text-center" style="color: #f05f40"><b>Danh sách yêu thích của bạn</b></h3>
+    </div>
+    <div class="box box-white">
+      <div *ngIf="yourFavorite?.length == 0">
+        <h4>Chưa có mục nào được thích</h4>
+      </div>
+      <div *ngIf="yourFavorite?.length > 0">
+        <div *ngFor="let uFavorite of yourFavorite | paginate: { itemsPerPage:5, currentPage: p }"
+             class="your-favorite">
+          <div class="name-favorite">
+            <h4><b>{{uFavorite.majorName}}</b></h4>
+            <span style="color: #adadad">{{uFavorite.univeristyName}}</span>
+          </div>
+          <div class="button-favorite">
+            <button type="button" class="btn btn-danger" (click)="selectIndex = uFavorite.id"
+                    (click)="deleteFavorite()">
+              <i class="fa fa-times" aria-hidden="true"></i> Bỏ Thích
+            </button>
+          </div>
+        </div>
+        <div class="text-center">
+          <pagination-controls (pageChange)="p =$event" previousLabel="" nextLabel=""></pagination-controls>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

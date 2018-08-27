@@ -1,0 +1,57 @@
+<div *ngIf="listReview?.length != 0">
+  <table class="table" id="myTable">
+    <thead>
+    <tr>
+      <th style="width: 1%">STT</th>
+      <th style="width: 20%">Tiêu đề</th>
+      <th style="width: 20%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of listReview | paginate: { itemsPerPage:10, currentPage: p }; let i = index">
+      <td>{{i+1}}</td>
+      <td>
+        <a>{{item.title}}</a>
+      </td>
+      <td>
+        <a (click)="viewDetail(item.id)" data-toggle="modal" data-target="#reviewDetail" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Xem </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="text-center"><pagination-controls (pageChange)="p =$event" previousLabel=""
+                                                nextLabel=""></pagination-controls></div>
+</div>
+<div *ngIf="listReview?.length == 0">
+  Hiện không có đánh giá nào đang chờ duyệt
+</div>
+
+
+<div class="modal fade" id="reviewDetail" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Thông tin đánh giá</h3>
+      </div>
+      <div class="modal-body">
+        <h4>Đánh giá của trường</h4>
+        <div>{{review?.university}}</div>
+        <h4>Tiêu đề</h4>
+        <div>
+          {{review?.title}}
+        </div>
+        <h4>Nội dung</h4>
+        <div [innerHTML]="review?.description">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="approveReview()" data-dismiss="modal">Duyệt</button>
+        <button type="button" class="btn btn-danger" (click)="notApproveReview()" data-dismiss="modal">Không Duyệt</button>
+      </div>
+    </div>
+
+  </div>
+</div>

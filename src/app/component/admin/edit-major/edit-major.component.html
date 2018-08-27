@@ -1,0 +1,27 @@
+<div *ngIf="majorUniversities?.length != 0">
+  <table class="table" id="myTable">
+    <thead>
+    <tr>
+      <th style="width: 1%">STT</th>
+      <th style="width: 20%">Ngành</th>
+      <th style="width: 20%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of majorUniversities | paginate: { itemsPerPage:10, currentPage: p }; let i = index">
+      <td>{{i}}</td>
+      <td>
+        <a>{{item.major.majorName}}</a>
+      </td>
+      <td>
+        <a (click)="setMajorUni(item)" [routerLink]="['/admin/edit-detail-major',item.id]" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Sửa thông tin ngành </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="text-center"><pagination-controls (pageChange)="p =$event" previousLabel=""
+                                                nextLabel=""></pagination-controls></div>
+</div>
+<div *ngIf="majorUniversities?.length == 0">
+  Trường hiện tại không có ngành học
+</div>

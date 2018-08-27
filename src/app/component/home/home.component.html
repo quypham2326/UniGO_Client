@@ -1,0 +1,107 @@
+<section id="hero">
+    <div class="container">
+        <div id="no-cv">
+            <h2>Bạn đang băn khoăn về ngành và trường học?</h2>
+            <p class="hidden-xs">Hãy đến với trắc nghiệm tính cách MBTI để xác định ngành học</p>
+            <a routerLink="/mbti-test" class="btn-cta"><i class="fa fa-pencil" aria-hidden="true"></i> <span>Trắc nghiệm
+                    MBTI</span></a>
+        </div>
+        <div id="have-cv">
+            <h2>Bạn đã quyết định học trường nào chưa?</h2>
+            <p class="hidden-xs">Tìm kiếm trường học phù hợp với trình độ đào tạo chất lượng cao tại trang web của chúng
+                tôi</p>
+            <a routerLink="/search-university" class="btn-cta"><i class="fa fa-search" aria-hidden="true"></i> <span>Tìm
+                    Trường Ngay</span></a>
+        </div>
+    </div>
+</section>
+
+<!--Top major show-->
+
+<div class="row" id="news-uni">
+    <div class="col-lg-12 text-dark-gray text-center">
+        <h2 class="section-heading" style="color: black">MỘT SỐ NGÀNH NỔI BẬT HIỆN NAY</h2>
+        <ul id="top-major">
+            <li class="box-title bold list-major" *ngFor="let major of topFiveMajor;let i = index" [class.active]="i === selectedRow"
+                (click)="getTopThreeMajor(i,major.id)"> {{major.majorName}}</li>
+            <!-- <li class="box-title bold list-major" (click)="getTopThreeMajor('4308')"> Quản trị kinh doanh</li>
+        <li class="box-title bold list-major" (click)="getTopThreeMajor('4309')"> Tài chính – Ngân hàng</li>
+        <li class="box-title bold list-major" (click)="getTopThreeMajor('4327')"> Y Dược</li>
+        <li class="box-title bold list-major" (click)="getTopThreeMajor('4356')"> Quốc phòng - An ninh</li> -->
+        </ul>
+        <!-- <ul id="news-uni" *ngFor="let major of topFiveMajor">
+          <li class="box-title bold list-major" (click)="getTopThreeMajor(major.id)">{{major.majorName}}</li>
+        </ul> -->
+        <hr class="featurette-divider">
+    </div>
+    <div class="row">
+        <a [routerLink]="['/app-view-major-university',valueCurrent]" class="see-more">
+            Xem thêm <i class="fa fa-caret-right"></i></a>
+    </div>
+    <div class="row text-center" style="height: 370px">
+        <div class="col-lg-4 col-sm-6 portfolio-item hero-feature" *ngFor="let university of searchMajor">
+            <div class="thumbnail">
+                <div style="padding: 20px" *ngIf="university && university.logo">
+                    <a [routerLink]="['/university',university.id]">
+                        <img src="{{university.logo}}" alt="">
+                    </a>
+                </div>
+                <div style="padding: 20px" *ngIf="!university.logo">
+                    <a [routerLink]="['/university',university.id]">
+                        <img src="../../../assets/image/image-not-found.png">
+                    </a>
+                </div>
+                <div class="caption">
+                    <div style="min-height: 55px; border: 1px solid white">
+                        <p class=""><b>{{university.name}}</b></p>
+                    </div>
+                    <div>
+                        <p>
+                            <button [routerLink]="['/university',university.id]" class="btn btn-success"><i class="fa fa-hand-o-right"></i>
+                                Thông Tin
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">UniStart sẽ giúp bạn những gì?</h2>
+                <hr class="primary">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-search text-primary sr-icons" data-sr-id="2" style=" visibility: visible;  -webkit-transform: scale(1); opacity: 1;transform: scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></i>
+                    <h3>Tìm kiếm trường đại học</h3>
+                    <p class="text-muted">Các bạn học sinh có thể tra cứu các trường đại học</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-paper-plane text-primary sr-icons" data-sr-id="3" style=" visibility: visible;  -webkit-transform: scale(1); opacity: 1;transform: scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></i>
+                    <h3>Thông tin chuẩn xác</h3>
+                    <p class="text-muted">Thông tin được cập nhật liên tục để có thể đưa cho các bạn những thông tin chuẩn
+                        xác nhất</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 text-center">
+                <div class="service-box">
+                    <i class="fa fa-4x fa-heart text-primary sr-icons" data-sr-id="5" style=" visibility: visible;  -webkit-transform: scale(1); opacity: 1;transform: scale(1); opacity: 1;-webkit-transition: -webkit-transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; transition: transform 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s, opacity 0.6s cubic-bezier(0.6, 0.2, 0.1, 1) 0s; "></i>
+                    <h3>Trắc nghiệm tính cách MBTI</h3>
+                    <p class="text-muted">Chúng sẽ giúp bạn chọn các chuyên ngành phù hợp qua kết quả trắc nghiệm tính cách
+                        MBTI</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

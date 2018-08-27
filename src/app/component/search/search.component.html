@@ -1,0 +1,154 @@
+<section id="hero">
+  <div class="container" style="top:100px">
+    <div class="box-search-job box">
+      <form [formGroup]="userForm" novalidate>
+        <table class="table-filter-school">
+
+          <tr>
+            <td colspan="2">
+              <h2 class="text-center">
+                Tìm kiếm ngôi trường mơ ước của bạn cùng UniStart
+              </h2>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="name">Tên Trường : </label>
+            </td>
+            <td colspan="3">
+              <input class="form-control" formControlName="schoolName" [(ngModel)]="schoolName">
+            </td>
+          </tr>
+          <tr [@slideInOut]="animationState">
+            <td>
+              <label>Ngành : </label>
+            </td>
+            <td colspan="3">
+              <angular2-multiselect [data]="dropDownList.listMajor" [(ngModel)]="selectedItems.selectedMajor" [settings]="dropdownSettings"
+                formControlName="major">
+                <c-item>
+                  <ng-template let-item="item">
+                    <label class="normal-font">{{item.itemName}}</label>
+
+                  </ng-template>
+                </c-item>
+              </angular2-multiselect>
+            </td>
+          </tr>
+          <tr [@slideInOut]="animationState">
+            <td> <label>Khu vực :</label></td>
+            <td colspan="3">
+              <angular2-multiselect [data]="dropDownList.listLocation" [(ngModel)]="selectedItems.selectedLocation"
+                [settings]="dropdownSettings2" formControlName="location">
+                <c-item>
+                  <ng-template let-item="item">
+                    <label class="normal-font">{{item.itemName}}</label>
+
+                  </ng-template>
+                </c-item>
+              </angular2-multiselect>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="2">
+              <button class="btn" type="submit" (click)="submitForm()" [disabled]="!userForm.valid">
+                <i class="fa fa-search" aria-hidden="true"></i>Tìm Ngay</button>
+            </td>
+            <td class="btn-advanced">
+              <p (click)="doFindAdvance('divA')"><i [className]="findAdvance ? 'fa fa-angle-up' : 'fa fa-angle-down'"></i>Tìm
+                kiếm nâng cao</p>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</section>
+<!--Show search-->
+<div *ngIf="show" id="main" style="background-color: white">
+  <div class="container" style="margin-top: -65px;">
+    <div class="row text-center" id="showsearch">
+      <div class="col-lg-4 col-sm-6 portfolio-item hero-feature" *ngFor="let university of listSearch">
+        <div class="thumbnail">
+          <div style="padding: 20px" *ngIf="university && university.logo">
+            <a [routerLink]="['/university',university.id]">
+              <img src="{{university.logo}}" alt="">
+            </a>
+          </div>
+          <div style="padding: 20px" *ngIf="!university.logo">
+            <a [routerLink]="['/university',university.id]">
+              <img src="../../../assets/image/image-not-found.png">
+            </a>
+          </div>
+          <div class="caption">
+            <div style="min-height: 55px; border: 1px solid white">
+              <p class="">
+                <b>{{university.name}}</b>
+              </p>
+            </div>
+            <div style="min-height: 35px; border: 1px solid white">
+              <p>{{university.location.locationName}}</p>
+            </div>
+            <div>
+              <p>
+                <button [routerLink]="['/university',university.id]" class="btn btn-success">
+                  <i class="fa fa-hand-o-right"></i> Thông Tin
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button *ngIf="isMore" class="btn btn-success" (click)="loadMoreSchool()">
+        <i class="fa fa-spinner"></i> Tải Thêm
+      </button>
+    </div>
+    <app-waiting-box></app-waiting-box>
+  </div>
+</div>
+
+<div *ngIf="show == false" class="not-found">
+  <div class="not-found-detail">
+    Không có kết quả nào phù hợp
+  </div>
+</div>
+<!-- End show search-->
+
+
+<!--News university-->
+<div class="row" id="news-uni">
+  <div class="row text-center" style="height: 370px">
+    <div class="col-lg-4 col-sm-6 portfolio-item hero-feature" *ngFor="let university of searchMajor">
+      <div class="thumbnail">
+        <div style="padding: 20px" *ngIf="university && university.logo">
+          <a [routerLink]="['/university',university.id]">
+            <img src="{{university.logo}}" alt="">
+          </a>
+        </div>
+        <div style="padding: 20px" *ngIf="!university.logo">
+          <a [routerLink]="['/university',university.id]">
+            <img src="../../../assets/image/image-not-found.png">
+          </a>
+        </div>
+        <div class="caption">
+          <div style="min-height: 55px; border: 1px solid white">
+            <p class="">
+              <b>{{university.name}}</b>
+            </p>
+          </div>
+          <div>
+            <p>
+              <button [routerLink]="['/university',university.id]" class="btn btn-success">
+                <i class="fa fa-hand-o-right"></i> Thông Tin
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End news university-->
+
+<!--Modal-->

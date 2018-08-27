@@ -1,0 +1,265 @@
+@color-0: white;
+@color-1: #652D34;
+@color-2: #929261;
+@color-3: #FD8814;
+@color-4: #f05f40;
+@color-5: #D2442C;
+
+//h1 {
+//  color: @color-5;
+//  font-size: 33px;
+//  letter-spacing: 2px;
+//  text-align: center;
+//  font-family: 'inherit';
+//  font-weight: bold;
+//}
+
+.row#showsearch{
+  padding-top: 20px;
+  //padding-left: 15%;
+  //padding-right: 15%;
+}
+
+.thumbnail{
+  border-color: white;
+  padding-bottom: 0px;
+  margin-top: 9px;
+}
+.table-filter-school{
+  margin: auto;
+  text-align: center;
+}
+.table-filter-school tr td {
+  padding-bottom: 1em;
+}
+.table-filter-school tr td label {
+  color: @color-4;
+  font-size: 1.3em;
+  font-weight: 700;
+}
+.table-filter-school tr td label.normal-font{
+  font-size: 1.0em;
+  font-weight: normal;
+  color: #333;min-width: 150px
+}
+.select2-container {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  position: relative;
+  vertical-align: middle;
+  height: 100px;
+}
+
+//search button
+.btn-success{
+  height: 80%;
+  border: none;
+  background-color: @color-0;
+  border: 1px solid @color-4;
+  color: @color-4;
+}
+
+.btn:hover {
+    background-color: @color-4;
+    //border: 2px solid #eea236;
+    color: @color-0;
+}
+
+//Random show university
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+    margin-bottom: 50px;
+  }
+  .col-md-4 {
+    width: 35%;
+  }
+}
+@media (min-width: 992px){
+.col-lg-12 {
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+  //margin-bottom: 20px;
+}}
+
+.row#news-uni{
+  border-top: 2px #666666;
+  margin: 50px;
+  margin-right: 150px;
+  margin-left: 150px;
+}
+// Pagination ---------
+.pagination-controls{
+  padding: 90px;
+}
+
+ //------------
+.modal-dialog{
+  width: 555px;
+  margin: 30px auto;
+  .table{
+    width: 80%;
+  }
+}
+.modal .modal-body {
+  padding: 20px;
+}
+#modalDetail .title {
+  font-weight: 600;
+  width: 30%;
+  display: inline-block;
+}
+#hero {
+  background-image: url('../../../assets/image/joseph-chan-256778.jpg');
+  background-size: cover;
+  background-position: center -175px;
+  background-repeat: no-repeat;
+  max-height: 500px;
+  z-index: 99;
+  .container{
+    height: auto;
+  }
+  .box-search-job {
+    margin-top: 100px;
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  .btn{
+    margin-right: auto;
+    padding: 10px 118px;
+    background-color: @color-4;
+    color: @color-0;
+  }
+
+  h2{
+    margin: 0;
+    padding: 0;
+    color: @color-4;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+}
+//Form group
+
+.filter-group label{
+  display: inline-block;
+}
+//Top news university
+#news-uni{
+  @media (min-width: 1200px){
+    .col-lg-4{
+      //border: 0.5px solid @color-2;
+      height: 350px;
+    }
+  }
+  img{
+    height: 170px;
+    width: 170px;
+  }
+}
+//Show search university
+.uni-name{
+  height: 71px;
+}
+
+// Img Search page
+
+.hero-feature{
+  img {
+    height: 210px;
+    width: 210px;
+    padding-top: 30px;
+  }
+  &:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: #333;
+    box-shadow: 0 0 5px 1px #bcbcbc;
+  }
+}
+
+// Top major
+#company-about {
+  text-align: justify;
+}
+.text-dark-gray li:hover{
+  transition: 0.2s;
+  transform: scale(1.02);
+  background: #C83F19;
+  color: white;
+  cursor:pointer;
+}
+
+.list-major {
+  font-size: 1em;
+  margin: 5px auto;
+  display: inline-block;
+  border: 1px solid #d5d5d5;
+  padding: 5px 15px;
+  border-radius: 7px;
+  margin-right: 7px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.text-dark-gray li:hover{
+  transition: 0.2s;
+  transform: scale(1.02);
+  background: #C83F19;
+  color: white;
+  cursor:pointer;
+}
+
+.active {
+  background: #C83F19;
+  color: white;
+}
+
+.see-more{
+  float: right;
+  margin-right: 30px;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+}
+
+.see-more:hover{
+  cursor: pointer;
+}
+
+.not-found{
+  text-align: center;
+  padding: 30px 60px 30px 60px;
+}
+
+.not-found-detail{
+  padding: 20px 60px 20px 60px;
+  border: 2px solid red;
+  border-radius: 16px;
+  font-size: 1.1em;
+  color: red;
+}
+.btn-advanced{
+  color: #ffffff;
+}
+.btn-advanced :hover{
+  cursor: pointer;
+}
+.btn-advanced i{
+  margin-right: 3px;
+}
+.table-filter-school {
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+  -ms-transition: all 2s ease;
+  transition: all 2s ease;
+}
+.component-advanced{
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+  -ms-transition: all 2s ease;
+  transition: all 2s ease;
+}

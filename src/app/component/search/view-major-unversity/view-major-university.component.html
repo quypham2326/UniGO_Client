@@ -1,0 +1,38 @@
+<div>
+  <!--//<img src="../../../assets/image/logo.png" height="152" width="200"/>-->
+  <img class="img-major" src="{{majorImg}}"/>
+  <div class="major-title">
+    <h1>{{majorName}}</h1>
+  </div>
+</div>
+
+<div class="container">
+  <hr class="featurette-divider">
+<div class="row text-center">
+  <div class="col-lg-4 col-sm-6 portfolio-item hero-feature"
+       *ngFor="let university of searchMajor">
+    <div class="major-card">
+      <div style="padding: 20px" *ngIf="university && university.logo">
+        <a [routerLink]="['/university',university.id]">
+          <img src="{{university.logo}}" alt="">
+        </a>
+      </div>
+      <div style="padding: 20px" *ngIf="!university.logo">
+        <a [routerLink]="['/university',university.id]">
+          <img src="../../../assets/image/image-not-found.png">
+        </a>
+      </div>
+      <div class="caption">
+        <div style="min-height: 55px; border: 1px solid white"><p class=""><b>{{university.name}}</b></p></div>
+        <div>
+          <p>
+            <button [routerLink]="['/university',university.id]" class="btn btn-success"><i
+              class="fa fa-hand-o-right"></i> Thông Tin
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,53 @@
+<div class="row" style="margin-bottom: 30px;">
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+        <select2 [data]="listUniNameSelect2| async" (valueChanged)="getValue($event)" [cssImport]=true [options]="options" width="100%">
+            <option></option>
+        </select2>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div>
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th style="width: 1%">STT</th>
+                <th style="width: 20%">Tên</th>
+                <th style="width: 20%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of listUniName | paginate: { itemsPerPage:10, currentPage: p }; let i = index">
+                <td>{{i+1}}</td>
+                <td>
+                    <a>{{item.name}}</a>
+                </td>
+                <td>
+                    <a [routerLink]="['/admin/edit-university',item.id]" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Sửa </a>
+                    <a class="btn btn-danger btn-xs" data-toggle="modal" id="id-button" data-target="#myModal" (click)="selectIndex = item.id"><i class="fa fa-trash-o"></i> Xoá </a>
+                    <a class="btn btn-warning btn-xs" [routerLink]="['/admin/edit-major',item.id]"><i class="fa fa-plus"></i> Chỉnh sửa ngành </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <pagination-controls (pageChange)="p =$event" previousLabel="" nextLabel=""></pagination-controls>
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Xác Nhận</h4>
+            </div>
+            <div class="modal-body">
+                <p>Bạn muốn xoá trường này ra khỏi danh sách</p>
+            </div>
+            <div class="modal-footer">
+                <button style="width: 70px" type="button" class="btn btn-danger" id="yes" data-dismiss="modal" (click)="deleteUniversity()">Xoá</button>
+                <button style="width: 70px" type="button" class="btn btn-success" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>

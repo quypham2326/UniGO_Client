@@ -1,0 +1,168 @@
+<ng-template #t let-fill="fill">
+  <span *ngIf="fill === 100" class="star-star-rating full-star-rating">★</span>
+  <span *ngIf="fill === 0" class="star-star-rating">★</span>
+  <span *ngIf="fill < 100 && fill > 0" class="star-star-rating">
+    <span class="half-star-star-rating" [style.width.%]="fill">★</span>★
+  </span>
+</ng-template>
+<div id="main">
+  <div class="container" id="review-all">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="box box-white" *ngFor="let item of review | orderBy: '-id' | paginate: { itemsPerPage:4, currentPage: p }">
+          <div class="row">
+            <div class="col-xs-12 review-title text-dark-gray">
+              {{item.title}}
+            </div>
+            <div class="col-xs-12 row" style="margin-bottom: 20px">
+              <div class="col-md-6 col-xs-12">
+                <label class="text-dark-gray">Đánh giá chung</label>
+                <div class="rating-container">
+                  <ngb-rating style="font-size: 20px" [(rate)]= "item.starFacilities*0.2 + item.starTeaching*0.2 + item.starCare*0.2
+                + item.starSocieties*0.2 + 0.2*item.starCareer" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                </div>
+              </div>
+              <div class="col-md-6 col-xs-12" *ngIf="item.isRecomment">
+                <div class="row">
+                  <div class="review-recommend">
+                    <p><i class="fa fa-thumbs-o-up" style="color:#f05f40; margin-right: 10px; font-size: 25px"></i><strong
+                      class="text-dark-gray">Sẵn sàng giới thiệu cho bạn bè</strong></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xs-12" *ngIf="!item.isRecomment">
+                <div class="row">
+                  <div class="review-recommend">
+                    <p><i class="fa fa-thumbs-o-down" style="margin-right: 10px; font-size: 25px"></i><strong
+                      class="text-dark-gray">Không muốn giới thiệu cho bạn bè</strong></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <div class="review-text">
+                <blockquote style="font-size: 16px;line-height: 28px;" [innerHTML]="item.description">
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <pagination-controls (pageChange)="p =$event" previousLabel=""
+                               nextLabel=""></pagination-controls>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="box box-white" id="no-review-box">
+          <div class="text-center"><a [routerLink]="['/new-review',id]" *ngIf="!checkReviewUni">
+            <button class="btn btn-uni-primary">Đánh giá ngay</button>
+          </a></div>
+          <div class="box-white" *ngIf="checkReviewUni" style="text-align: center">
+            <a style="color: #0BA25E"><i class="fa fa-check fa-2x" aria-hidden="true" style="margin-right: 10px"></i>Đã Đánh Giá</a>
+          </div>
+        </div>
+        <div class="box box-white">
+          <div class="box-company-title"><a class="text-highlight bold"
+                                            [routerLink]="['/university',id]">{{university?.name}}</a>
+          </div>
+          <div class="box-company-content">
+            <div id="review-count" class="text-dark-gray">Tổng lượt đánh giá: {{totalReview}}</div>
+            <div id="review-box">
+              <div class="row">
+                <div class="col-md-4" style="float: left">
+                  <div class="radial-progress" [attr.data-score]="recommentPoint">
+                    <div class="circle">
+                      <div class="mask full">
+                        <div class="fill"></div>
+                      </div>
+                      <div class="mask half">
+                        <div class="fill"></div>
+                        <div class="fill fix"></div>
+                      </div>
+                      <div class="shadow"></div>
+                    </div>
+                    <div class="inset">
+                      <div class="percentage">
+                        <div class=""><span>{{recommentPoint}}%</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div style="padding-top: 20px" class="review-overall-text text-dark-gray">Sẵn sàng giới thiệu cho bạn bè</div>
+                </div>
+              </div>
+              <div class="row rating">
+                <div class="col-xs-9">
+                  <label class="text-dark-gray">Đánh giá chung</label>
+                  <div class="star-rating" style="margin-top: 5px;">
+                    <ngb-rating [(rate)]="totalStar" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <span class="overall-rate">{{totalStar | number:'1.0-1'}}</span>
+                </div>
+              </div>
+              <br>
+              <div class="row rating rating-small">
+                <div class="col-xs-9">
+                  <label class="text-dark-gray">Trình độ giảng dạy</label>
+                  <div  class="star-rating-small" style="margin-top: 5px;">
+                    <ngb-rating [(rate)]="starsTeaching" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <span class="score-rate">{{starsTeaching | number:'1.0-1'}}</span>
+                </div>
+              </div>
+              <div class="row rating rating-small">
+                <div class="col-xs-9">
+                  <label class="text-dark-gray">Cơ sở vật chất</label>
+                  <div  class="star-rating-small" style="margin-top: 5px;">
+                    <ngb-rating [(rate)]="starsFacilities" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <span class="score-rate">{{starsFacilities | number:'1.0-1'}}</span>
+                </div>
+              </div>
+              <div class="row rating rating-small">
+                <div class="col-xs-9">
+                  <label class="text-dark-gray">Công tác sinh viên</label>
+                  <div  class="star-rating-small" style="margin-top: 5px;">
+                      <ngb-rating [(rate)]="starCare" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <span class="score-rate">{{starCare | number:'1.0-1'}}</span>
+                </div>
+              </div>
+              <div class="row rating rating-small">
+                <div class="col-xs-9">
+                  <label class="text-dark-gray">Hoạt động xã hội</label>
+                  <div  class="star-rating-small" style="margin-top: 5px;">
+                    <ngb-rating [(rate)]="starSocieties" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <span class="score-rate">{{starSocieties | number:'1.0-1'}}</span>
+                </div>
+              </div>
+              <div class="row rating rating-small">
+                <div class="col-xs-9">
+                  <label class="text-dark-gray">Cơ hội nghề nghiệp</label>
+                  <div  class="star-rating-small" style="margin-top: 5px;">
+                    <ngb-rating [(rate)]="starCareer" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <span class="score-rate">{{starCareer | number:'1.0-1'}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

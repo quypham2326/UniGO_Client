@@ -1,0 +1,50 @@
+<div id="main">
+  <div class="container" style="max-width: 800px;">
+    <div *ngIf="questions" class="row">
+      <div>
+        <div class="box box-white" style="min-height: 500px">
+          <div id="mainbar">
+            <div class="subheader bold">
+              <h1 id="h-top-questions">
+                Các câu hỏi của bạn
+              </h1>
+            </div>
+            <div id="qlist-wrapper">
+              <div id="question-mini-list">
+                <div class="question-summary narrow" *ngFor="let question of questions |orderBy: '-count'| paginate: { itemsPerPage:10, currentPage: p }">
+                  <div class="cp">
+                    <div class="votes">
+                      <div class="mini-counts"><span>{{question.totalAnswer}}</span></div>
+                      <div>trả lời</div>
+                    </div>
+                  </div>
+                  <div class="summary">
+                    <h3><a [routerLink]="['/question-detail',question.id]" class="bold">{{question?.title}}</a></h3>
+                    <div class="started">
+                      <span class="">{{question?.lastUpdatedTime | date:'dd-MM-yyyy HH:mm'}}</span>
+                    </div>
+                  </div>
+                  <div style="float: right;padding: 30px 61px 0px 0px;" *ngIf="question?.count">
+                    <span class="badge bg-red">{{question?.count}}</span>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <pagination-controls (pageChange)="p =$event" previousLabel=""
+                                       nextLabel=""></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!questions" class="box box-white">
+      <div style="padding: 0px 10px 30px 10px">
+        Bạn chưa đặt câu hỏi. Nếu có câu hỏi về học tập thì hãy
+      </div>
+      <div style="text-align: center; margin-bottom: 10px">
+        <a [routerLink]="['/new-question']" class="btn btn-uni-primary">Đặt câu hỏi</a>
+      </div>
+    </div>
+  </div>
+</div>
