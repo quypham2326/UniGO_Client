@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgForm } from "@angular/forms";
-import { MBTIQuestion } from "../../model/MBTIModel";
-import { MbtiService } from "../../service/mbti/mbti.service";
-import { BaseService } from "../../service/base-service/base.service";
-import { Constants } from "../../constants";
-import { ToastsManager } from "ng2-toastr";
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgForm} from "@angular/forms";
+import {MBTIQuestion} from "../../model/MBTIModel";
+import {MbtiService} from "../../service/mbti/mbti.service";
+import {BaseService} from "../../service/base-service/base.service";
+import {Constants} from "../../constants";
+import {ToastsManager} from "ng2-toastr";
 import * as $ from 'jquery';
 
 @Component({
@@ -22,6 +22,9 @@ export class MbtiTestComponent implements OnInit {
   public majorResult: any;
   public update: boolean = false;
   public topUniMBTI;
+  public index: number = 0;
+  public slideToggle: string = ".slide-toggle-character"; //Class Slide Toggle Character
+  public isClickSlideToggle: boolean = false;
   private scores = {
     E: 0,
     I: 0,
@@ -34,12 +37,12 @@ export class MbtiTestComponent implements OnInit {
   };
 
   constructor(private router: Router, private mbtiService: MbtiService, private baseService: BaseService,
-    private constanst: Constants, public toastr: ToastsManager, vcr: ViewContainerRef) {
+              private constanst: Constants, public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr)
   }
 
   //Top University MBTI
-  getUniMBTI(data) {
+  getUniMBTI(data){
     this.mbtiService.getTopUniMBTI(data).subscribe((res: any) => {
       this.topUniMBTI = res;
       console.log(data)
@@ -48,6 +51,7 @@ export class MbtiTestComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.tested = false;
     this.questions = [];
 
@@ -75,12 +79,10 @@ export class MbtiTestComponent implements OnInit {
 
   }
 
-
-
   public onChoose(item, option) {
-    console.log(this.scores);
     if ((option == 'a' || option == 'b') && !item.isChecked) {
       item.fullChecked = true;
+      // console.log(item.fullChecked)
     }
     if (option == 'a' && !item.isChecked) {
       if (item.MBTIGroup == 'EI') {
@@ -92,7 +94,8 @@ export class MbtiTestComponent implements OnInit {
       } else {
         this.scores.J = this.scores.J + 1;
       }
-      item.isChecked = true;
+      item.isChecked = false;
+      
     }
     if (option == 'b' && !item.isChecked) {
       if (item.MBTIGroup == 'EI') {
@@ -106,13 +109,15 @@ export class MbtiTestComponent implements OnInit {
       }
       item.isChecked = false;
     }
+    console.log(this.scores);
+    console.log(option)
   }
 
   public onSubmit(form: NgForm) {
 
     for (let i = 0; i < this.questions.length; i++) {
       if (this.questions[i].fullChecked == false) {
-        this.toastr.error("Vui lòng hoàn thành tất cả câu hỏi", '', { showCloseButton: true });
+        this.toastr.error("Vui lòng hoàn thành tất cả câu hỏi", '', {showCloseButton: true});
         return;
       }
     }
@@ -141,6 +146,9 @@ export class MbtiTestComponent implements OnInit {
     let data = {
       mbtiType: {
         "mbtitypeName": this.MBTIresult
+      },
+      user: {
+        "id": this.baseService.getUser().id,
       }
     };
     // if (this.update === false) {
@@ -165,19 +173,19 @@ export class MbtiTestComponent implements OnInit {
     //   });
     // }
     this.mbtiService.saveMbti(data).subscribe((response: any) => {
-      if (response) {
-        // this.mbtiService.getMbtiresult(this.baseService.getUser().id).subscribe((response: any) => {
-        //   this.mbtiResult = response;
-        //   this.majorResult = response.mbtitype.majorMbtis;
-        //   this.getUniMBTI(response.mbtitype.id);
-        //   document.body.scrollTop = 0;
-        // })
-        this.mbtiResult = response;
-        this.majorResult = response.mbtitype.majorMbtis;
-        this.getUniMBTI(response.mbtitype.id);
-        document.body.scrollTop = 0;
-      }
-    });
+          if (response) {
+            // this.mbtiService.getMbtiresult(this.baseService.getUser().id).subscribe((response: any) => {
+            //   this.mbtiResult = response;
+            //   this.majorResult = response.mbtitype.majorMbtis;
+            //   this.getUniMBTI(response.mbtitype.id);
+            //   document.body.scrollTop = 0;
+            // })
+            this.mbtiResult = response;
+            this.majorResult = response.mbtitype.majorMbtis;
+            this.getUniMBTI(response.mbtitype.id);
+            document.body.scrollTop = 0;
+          }
+        });
     document.body.scrollTop = 0;
     this.tested = true;
     this.scores = {
@@ -196,13 +204,28 @@ export class MbtiTestComponent implements OnInit {
     }
   }
 
-  public cancel() {
+  public cancel(){
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-    if (this.update) {
+    if(this.update){
       this.tested = true;
-    } else {
+    }else{
       this.router.navigate(['/search-university']);
     }
   }
+  // Author: Nguyen Dinh Thai
+  //==========================
+  Next(count){
+    this.index = ++ count
+  }
+
+  Previous(count){
+    this.index = --count
+  }
+
+  toggleSlideCharacter(slideToggle){
+    this.isClickSlideToggle = !this.isClickSlideToggle
+    $(slideToggle).slideToggle();
+  }
 }
+
