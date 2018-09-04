@@ -1,75 +1,103 @@
 <div class="x_content">
+  <!-- Edit Form -->
   <form #editForm="ngForm" (ngSubmit)="onEdit(editForm)" class="form-horizontal form-label-left">
+    <!-- Mã Trường -->
     <div class="form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã Trường<span class="required">*</span>
-      </label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Mã Trường *</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <input disabled name="code" ngModel [ngModel]="university?.code" required #code="ngModel" class="form-control">
+        <input disabled name="code" required [(ngModel)]="selectedItems.selectedCode" #code="ngModel" class="form-control">
       </div>
     </div>
+    <!-- Tên Trường -->
     <div class="form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên Trường<span class="required">*</span>
-      </label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tên Trường *</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <input name="name" ngModel [ngModel]="university?.name" #nameUni="ngModel" required class="form-control">
-        <div *ngIf="nameUni.errors && nameUni.touched" class="alert alert-danger">
-          <div [hidden]="!nameUni.errors.required">
+        <input name="nameUni" required [(ngModel)]="selectedItems.selectedName" #nameUni="ngModel" class="form-control">
+        <div [hidden]="nameUni.valid || nameUni.pristine" class="alert alert-danger">
+          <div [hidden]="!nameUni.hasError('required')">
             Vui lòng nhập tên trường
           </div>
         </div>
       </div>
     </div>
+    <!-- Loại Hình Đào Tạo -->
     <div class="form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Loại hình đào tạo<span class="required">*</span></label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Loại hình đào tạo *</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <select class="form-control" name="train" #train="ngModel" required ngModel [ngModel]="university?.trainSystem?.id">
-          <option value="1">Công lập</option>
-          <option value="2">Dân lập</option>
-        </select>
-        <div *ngIf="train.errors && train.touched" class="alert alert-danger">
-          <div [hidden]="!train.errors.required">
+          <angular2-multiselect [data]="dropDownList.optionsTrain" [(ngModel)]="selectedItems.selectedTrain" [settings]="settingsList.trainSettings"
+           name="train" #train="ngModel" required
+          >
+              <c-item>
+                <ng-template let-item="item">
+                    <label>{{item.itemName}}</label>
+                </ng-template>
+              </c-item>    
+          </angular2-multiselect>
+        <div [hidden]="train.valid || train.pristine" class="alert alert-danger">
+          <div [hidden]="!train.hasError('required')">
             Vui lòng nhập loại hình đào tạo
           </div>
         </div>
       </div>
     </div>
+    <!-- Email -->
     <div class="form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Email</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <input pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" type="email" name="email" #email="ngModel"
-               ngModel [ngModel]="university?.email" class="form-control">
-        <div *ngIf="email.errors && email.touched" class="alert alert-danger">
-          <div [hidden]="!email.errors.pattern">
-            Email của bạn không đúng.
+        <input pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" type="text" name="email" #email="ngModel"
+               [(ngModel)]="selectedItems.selectedEmail" class="form-control">
+        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+          <div [hidden]="!email.hasError('pattern')">
+            Email của bạn không đúng. <small>abc@xyz.com</small>
           </div>
         </div>
       </div>
     </div>
+    <!-- Số Điện Thoại -->
     <div class="form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Số điện thoại</label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Số điện thoại</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <input class="form-control" name="phone" ngModel [ngModel]="university?.phone">
+        <input class="form-control" name="phone" [(ngModel)]="selectedItems.selectedPhone">
       </div>
     </div>
+    <!-- Khu Vực -->
     <div class="form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Khu Vực</label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Khu Vực</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <select2 [data]="listLocation | async"
-                 [value]="university?.location?.id"
-                 (valueChanged)="getValueLocation($event)"></select2>
+          <angular2-multiselect [data]="dropDownList.listLocation" [(ngModel)]="selectedItems.selectedLocation" [settings]="settingsList.locationSettings"
+          (valueChanged)="getValueLocation($event)" name="location" #location="ngModel" required
+          >
+              <c-item>
+                <ng-template let-item="item">
+                    <label>{{item.itemName}}</label>
+                </ng-template>
+              </c-item>    
+          </angular2-multiselect>
+          <div [hidden]="location.valid" class="alert alert-danger" >
+                <div [hidden]="!location.hasError('required')" > Vui lòng chọn Khu Vực </div>
+          </div>
       </div>
     </div>
+    <!-- Ngành Học -->
     <div class="form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngành học</label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Ngành học</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
         <!--Multiple choice-->
-        <select2 [data]="listMajor"
-                 [options]="options"
-                 [value]="valueMajor"
-                 (valueChanged)="getValueMajor($event)">
-        </select2>
+        <angular2-multiselect [data]="dropDownList.listMajor" [(ngModel)]="selectedItems.selectedMajor" [settings]="settingsList.majorSettings"
+          (valueChanged)="getValueMajor($event)" name="major" #major="ngModel" required
+          >
+              <c-item>
+                <ng-template let-item="item">
+                    <label>{{item.itemName}}</label>
+                </ng-template>
+              </c-item>    
+            </angular2-multiselect>
+            <div [hidden]="major.valid" class="alert alert-danger" >
+                <div [hidden]="!major.hasError('required')" > Vui lòng chọn Ngành Học </div>
+              </div>
       </div>
     </div>
+    <!-- Logo Trường -->
     <div class="form-group">
       <label class="control-label col-md-3 col-sm-3 col-xs-12">Logo Trường</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
@@ -94,8 +122,9 @@
              width="100"/>
       </div>
     </div>
+    <!-- Hình Ảnh Trường -->
     <div class="form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình ảnh Trường</label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" >Hình ảnh Trường</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
         <label class="uploader" ondragover="return false;"
                [class.loaded]="loaded"
@@ -119,16 +148,18 @@
              width="100"/>
       </div>
     </div>
+    <!-- Mô Tả -->
     <div class="form-group">
       <label class="control-label col-md-3 col-sm-3 col-xs-12">Mô tả</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
         <textarea id="summernote" rows="10" style="height: 150px" class="form-control" type="text"> </textarea>
       </div>
     </div>
+    <!-- Độ Ưu Tiên -->
     <div class="form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Độ ưu tiện</label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Độ ưu tiện</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <select class="form-control" name="pri" [ngModel]="university?.priority" ngModel>
+        <select class="form-control" name="pri" [(ngModel)]="selectedItems.selectedPriority">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -140,11 +171,8 @@
     <div class="ln_solid"></div>
     <div class="form-group" style="text-align: center">
       <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-        <button type="summit" [disabled]="!editForm.valid" class="btn btn-success">Lưu</button>
+        <button type="summit" [disabled]="!editForm.form.valid" class="btn btn-success btn-block">Lưu</button>
       </div>
     </div>
   </form>
 </div>
-
-
-

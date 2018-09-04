@@ -23,15 +23,43 @@ export class EditUniversityComponent implements OnInit {
   public valueLocation: string;
   public currentMajor: any = [];
   public options: Select2Options;
-  public listMajor: any;
+  public listMajor: Array<Select2OptionData>;
+  public listMajorArray: any = [];
   public listLocation: Observable<Select2OptionData[]>;
   public sub: Subscription;
   public university: any;
   public logoSrc: any = '';
   public imageSrc: any = '';
-  public valueMajor: number[] = [];
+  public valueMajor: any = [];
+  //public newValueMajor: [];
   public isLoadLogo: boolean = false;
   public isLoadImage: boolean = false;
+  //Angular 2 MultiSelect Dropdown
+  public settingsList: any = {
+    "locationSettings": {
+      singleSelection: true, 
+      text:"Chọn Khu Vực",
+      enableSearchFilter: true,
+    },
+    "majorSettings": {
+      singleSelection: false, 
+      text:"Chọn Ngành Học",
+      enableSearchFilter: true,
+    },
+    "trainSettings": {
+      singleSelection: true, 
+      text:"Chọn Loại Hình Đào Tạo",
+      enableSearchFilter: false,
+    }
+  }
+  public selectedItems: any = {}
+  dropDownList: any = {
+    "optionsTrain": [],
+    "listMajor": [],
+    "listLocation": [],
+  };
+  
+  
   constructor(private activateRoute: ActivatedRoute,
               private universityService: UniversityService,
               private baseService: BaseService,
@@ -57,16 +85,51 @@ export class EditUniversityComponent implements OnInit {
       this.id = params['id'];
     });
     this.listLocation = this.searchService.getLocation(this.constant.LOCATION);
+    // console.log(this.listLocation)
    this.getUniversity();
-    this.options = {
-      multiple: true
-    }
+    // this.options = {
+    //   multiple: true
+    // }
+    //Angular 2 MultiSelect Dropdown
+    this.universityService.getMajor().subscribe((response: any) => {
+      this.dropDownList.listMajor = response.map(e => ({
+        id: e.id,
+        itemName: e.majorName,
+      }));
+    });
+    this.searchService.getLocation1().subscribe((response: any) => {
+      this.dropDownList.listLocation = response.map(e => ({
+        id: e.id,
+        itemName: e.locationName,
+      }));
+    });
+    this.universityService.getTrainSystem().subscribe((response: any) => {
+      this.dropDownList.optionsTrain = response.map(e => ({
+        id: e.id,
+        itemName: e.name        
+      }))
+    })
   }
 
   getUniversity(){
     this.universityService.getUniversityById(this.id).subscribe(
       (university: any) => {
         this.university = university;
+        let arrayMajorName = university.majorUniversities.map(item=>({
+          id: item.major.id,
+          itemName: item.major.majorName
+        }))
+        this.selectedItems = {
+          "selectedCode": [university.code],
+          "selectedName": [university.name],
+          "selectedTrain": [{id:university.trainSystem.id ,itemName: university.trainSystem.name}],
+          "selectedEmail": [university.email],
+          "selectedPhone": [],
+          "selectedMajor": arrayMajorName,
+          "selectedLocation": [{id: university.location.id, itemName: university.location.locationName}],
+          "selectedPriority": [university.priority]
+        };
+        //console.log(this.university.trainSystem.name)
         $('#summernote').summernote('code', this.university.description);
         this.logoSrc = university.logo;
         this.imageSrc = university.image;
@@ -92,10 +155,11 @@ export class EditUniversityComponent implements OnInit {
     this.valueLocation = data.value;
   }
   getValueMajor(data){
-    this.currentMajor = data;
+    this.currentMajor = data.value;
   }
 
   onEdit(form: NgForm){
+    this.selectedItems.selectedEmail= [];
     let listMajorRemove: any[]= [];
     let listMajorAdd: any[] = [];
     if(this.currentMajor.value){
@@ -108,7 +172,7 @@ export class EditUniversityComponent implements OnInit {
     let data = {
       'id': this.id,
       'code': this.university.code,
-      'name': form.value.name,
+      'name': form.value.nameUni,
       'email': form.value.email,
       'phone': form.value.phone,
       'logo': this.baseService.getLogoUni()? this.baseService.getLogoUni(): this.logoSrc,
@@ -116,20 +180,22 @@ export class EditUniversityComponent implements OnInit {
       'description': $('#summernote').summernote('code'),
       'priority': form.value.pri,
       'trainSystem':{
-        'id': parseInt(form.value.train)
+        'id': 2
       }
     };
+    console.log(data)
     let seft = this;
     this.universityService.updateUniversity(this.constant.UPDATE_UNIVESITY,data).subscribe((response:any)=>{
       if(response){
-        if((this.valueLocation != this.university.location.id) || listMajorRemove.length != 0 || listMajorAdd.length != 0){
-         this.updateLocationMajor(listMajorRemove);
-        }else{
-          this.toastr.success('Bạn đã chỉnh sửa thành công', 'Thành công!',{showCloseButton: true});
+        if((this.valueLocation != this.university.priority) || listMajorRemove.length != 0 || listMajorAdd.length != 0){
+         this.updateLocationMajor(listMajorRemove);         
+        }else{    
+          this.toastr.success('Bạn đã chỉnh sửa thành công', 'Thành công!',{showCloseButton: true});      
           setTimeout(function () {
             seft.router.navigate(['/admin/list-university'])
-          }, 1000);
+          }, 1000);          
         }
+        
       }
     },error=>{
       if(error.status==this.constant.CONFLICT){

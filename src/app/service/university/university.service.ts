@@ -110,4 +110,7 @@ export class UniversityService {
   getMajor(): Observable<any> {
     return this._http.get(this.contant.MAJOR).map((res: Response) => res.json());
   }
+  getTrainSystem(): Observable<any>{
+    return this._http.get(this.contant.TRAINSYSTEM).map((res: Response) => res.json());
+  }
 }

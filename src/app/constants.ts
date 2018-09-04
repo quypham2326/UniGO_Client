@@ -80,6 +80,7 @@ export class Constants {
   public GET_ALL_REPORT = this.SERVER_NAME + "/qa/get-all-report";
   public CHANGE_REPORT_STATUS = this.SERVER_NAME + "/qa/change-report-status";
   public NUMBER_REPORT = this.SERVER_NAME + "/qa/number-report";
+  public TRAINSYSTEM = this.SERVER_NAME + "/train-system/view"
 
   // ADD MORE
   public GET_TOP5_MAJOR = this.SERVER_NAME + "/university/get-popular-major";

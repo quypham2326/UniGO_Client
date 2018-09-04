@@ -38,14 +38,14 @@
       </div>
       <div class="modal-body">
         <h4>Tiêu đề</h4>
-        <div>
+        <div style="word-wrap: break-word">
           {{question?.title}}
         </div>
         <h4>Nội dung</h4>
-        <div [innerHTML]="question?.content | safeHtml">
+        <div style="word-wrap: break-word" [innerHTML]="question?.content | safeHtml">
         </div>
         <h4>Thẻ</h4>
-        <div style="display: inline-block">
+        <div style="display: inline-block; word-wrap: break-word">
            <span class="tag" *ngFor="let t of tags">
           {{t.tag.tagName}}
         </span>

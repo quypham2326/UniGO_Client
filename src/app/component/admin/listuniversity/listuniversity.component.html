@@ -4,6 +4,15 @@
         <select2 [data]="listUniNameSelect2| async" (valueChanged)="getValue($event)" [cssImport]=true [options]="options" width="100%">
             <option></option>
         </select2>
+        <!-- <angular2-multiselect [data]="listUniNameSelect2| async" [settings]="settingsList.majorSettings"
+          (valueChanged)="getValue($event)" name="major" #major="ngModel"
+          >
+              <c-item>
+                <ng-template let-item="item">
+                    <label>{{item.itemName}}</label>
+                </ng-template>
+              </c-item>    
+        </angular2-multiselect> -->
     </div>
     <div class="col-md-2"></div>
 </div>

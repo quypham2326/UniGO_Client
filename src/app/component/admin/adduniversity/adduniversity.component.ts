@@ -20,8 +20,42 @@ export class AdduniversityComponent implements OnInit {
   public value: string[] = [];
   public currentLocation: string;
   public currentMajor: any = [];
-  public listMajor: Observable<Select2OptionData[]>;
+  public listMajor:any = [];//Observable<Select2OptionData[]>;
+  public listMajorArray: any = [];
   public listLocation: Observable<Select2OptionData[]>;
+  //Angular 2 MultiSelect Dropdown
+  public selectedItems: any = {
+    "selectedCode": [],
+          "selectedName": [],
+          "selectedTrain": [],
+          "selectedEmail": [],
+          "selectedPhone": [],
+          "selectedMajor": [],
+          "selectedLocation": [],
+          "selectedPriority": []
+  }
+  public settingsList: any = {
+    "locationSettings": {
+      singleSelection: true, 
+      text:"Chọn Khu Vực",
+      enableSearchFilter: true,
+    },
+    "majorSettings": {
+      singleSelection: false, 
+      text:"Chọn Ngành Học",
+      enableSearchFilter: true,
+    },
+    "trainSettings": {
+      singleSelection: true, 
+      text:"Chọn Loại Hình Đào Tạo",
+      enableSearchFilter: false,
+    }
+  }
+  dropDownList: any = {
+    "optionsTrain": [],
+    "listMajor": [],
+    "listLocation": [],
+  };
   constructor(private searchService: SearchService,private uniService: UniversityService,  private router: Router,
               private constant: Constants, private baseService: BaseService,public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -38,11 +72,35 @@ export class AdduniversityComponent implements OnInit {
       ]
     });
     this.uniService.broadcastTextChange("THÊM TRƯỜNG MỚI");
-    this.listMajor = this.searchService.getMajor(this.constant.MAJOR);
+    this.searchService.getMajor(this.constant.MAJOR)
+      .subscribe((value: any)=>{
+        this.listMajor = value;
+        this.listMajorArray = this.listMajor.map((item) =>{
+          return item.itemName
+        })
+      });
     this.listLocation = this.searchService.getLocation(this.constant.LOCATION);
     this.options = {
       multiple: true
     };
+    this.uniService.getMajor().subscribe((response: any) => {
+      this.dropDownList.listMajor = response.map(e => ({
+        id: e.id,
+        itemName: e.majorName,
+      }));
+    });
+    this.searchService.getLocation1().subscribe((response: any) => {
+      this.dropDownList.listLocation = response.map(e => ({
+        id: e.id,
+        itemName: e.locationName,
+      }));
+    });
+    this.uniService.getTrainSystem().subscribe((response: any) => {
+      this.dropDownList.optionsTrain = response.map(e => ({
+        id: e.id,
+        itemName: e.name        
+      }))
+    })
   }
 
   getValueMajor(data) {
@@ -111,9 +169,9 @@ export class AdduniversityComponent implements OnInit {
       }
     },error=>{
       if(error.status==this.constant.NOT_FOUND){
-        this.toastr.error('Trường đại học này không tồn tại. Vui lòng thử lại', 'Thất bại',{showCloseButton: true});
+        this.toastr.error('locate Trường đại học này không tồn tại. Vui lòng thử lại', 'Thất bại',{showCloseButton: true});
       }else{
-        this.toastr.error('Vui lòng kiểm tra lại kết nối mạng', 'Thất bại',{showCloseButton: true});
+        this.toastr.error('locate Vui lòng kiểm tra lại kết nối mạng', 'Thất bại',{showCloseButton: true});
       };
     });
   }
