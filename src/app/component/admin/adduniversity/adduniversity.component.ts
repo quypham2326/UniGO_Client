@@ -22,6 +22,7 @@ export class AdduniversityComponent implements OnInit {
   public currentMajor: any = [];
   public listMajor: Observable<Select2OptionData[]>;
   public listLocation: Observable<Select2OptionData[]>;
+  public arrayMajor: any = []
   constructor(private searchService: SearchService,private uniService: UniversityService,  private router: Router,
               private constant: Constants, private baseService: BaseService,public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -47,9 +48,11 @@ export class AdduniversityComponent implements OnInit {
 
   getValueMajor(data) {
     this.currentMajor = data;
+    // console.log(this.currentMajor.value)
   }
   getValueLocation(data){
     this.currentLocation = data.value;
+    
   }
   onSave(form: NgForm){
     if(this.currentMajor.value){
@@ -57,6 +60,8 @@ export class AdduniversityComponent implements OnInit {
         this.currentMajor.value[i] = parseInt(this.currentMajor.value[i]);
       }
     }
+    console.log(this.currentMajor.value)
+    // this.arrayMajor
     let data = {
       'code': form.value.code,
       'name': form.value.name,
@@ -64,24 +69,31 @@ export class AdduniversityComponent implements OnInit {
       'phone': form.value.phone,
       'logo': this.baseService.getLogoUni(),
       'image': this.baseService.getImgUni(),
+      'location':{       
+        'id':this.currentLocation? parseInt(this.currentLocation) : null,
+      },
+      // 'majorId': this.currentMajor.value,
       'description':  $('#summernote').summernote('code'),
       'priority': form.value.pri? form.value.pri : 0,
       'trainSystem':{
         'id': form.value.train
       }
     };
+    console.log(data)
     let seft = this;
+    //if(error.status != this.constant.CONFLICT)
     this.uniService.createUniversity(this.constant.CREATE_UNIVESITY,data).subscribe((response:any)=>{
       if(response){
         if(this.currentLocation || this.currentMajor.value){
-          this.updateLocationMajor(response);
-        }else{
+          this.updateLocationMajor(response)
+        }
+  
           this.toastr.success('Bạn đã tạo mới thành công', 'Thành công!',{showCloseButton: true});
           setTimeout(function () {
             seft.router.navigate(['/admin/list-university'])
           }, 1000);
         }
-      }
+      
     },error=>{
       if(error.status==this.constant.CONFLICT){
         this.toastr.error('Trường đại học này đã tồn tại. Vui lòng thử lại', 'Thất bại',{showCloseButton: true});
@@ -101,7 +113,9 @@ export class AdduniversityComponent implements OnInit {
         'id': response.id ? response.id : null
       }
     };
+    console.log(dataLocation)
     let seft = this;
+    // this.uniService.updateLocationMajor(this.constant.UPDATE_LOCATION_MAJOR,dataLocation)
     this.uniService.updateLocationMajor(this.constant.UPDATE_LOCATION_MAJOR,dataLocation).subscribe((res:any)=>{
       if(res){
         this.toastr.success('Bạn đã tạo mới thành công', 'Thành công!',{showCloseButton: true});
@@ -118,3 +132,6 @@ export class AdduniversityComponent implements OnInit {
     });
   }
 }
+
+
+

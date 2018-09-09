@@ -14,11 +14,11 @@ export class SearchService {
     return this._http.get(url)
       .map((response: Response) => response.json())
       .map((majors) => {
-        if (majors.length > 1) {
-          majors.unshift({id: '0', name: ''});
-        }
+        // if (majors.length > 1) {
+        //   majors.unshift({id: '0', name: ''});
+        // }
         return majors.map((major) => {
-          return {id: major.id, itemName: major.majorName};
+          return {id: major.id.toString(), text: major.majorName};
         });
       })
   }
@@ -44,7 +44,7 @@ export class SearchService {
       .map((response: Response) => response.json())
       .map((locations) => {
         if (locations.length > 1) {
-          locations.unshift({id: '0', name: ''});
+          //locations.unshift({id: '0', name: ''});
           return locations.map((location) => {
             return {id: location.id, text: location.locationName};
           });

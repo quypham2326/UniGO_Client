@@ -38,11 +38,11 @@
       </div>
       <div class="modal-body">
         <h4>Tiêu đề</h4>
-        <div>
+        <div style="word-wrap: break-word;">
           {{question?.title}}
         </div>
         <h4>Nội dung</h4>
-        <div [innerHTML]="question?.content | safeHtml">
+        <div [innerHTML]="question?.content | safeHtml" style="word-wrap: break-word;">
         </div>
         <h4>Thẻ</h4>
         <div style="display: inline-block">

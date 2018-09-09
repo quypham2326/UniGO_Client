@@ -19,6 +19,7 @@ declare var $: any;
   styleUrls: ['./edit-university.component.less']
 })
 export class EditUniversityComponent implements OnInit {
+  public abcTest:any
   public id: number;
   public valueLocation: string;
   public currentMajor: any = [];
@@ -29,7 +30,7 @@ export class EditUniversityComponent implements OnInit {
   public university: any;
   public logoSrc: any = '';
   public imageSrc: any = '';
-  public valueMajor: number[] = [];
+  public valueMajor: string[] = [];
   public isLoadLogo: boolean = false;
   public isLoadImage: boolean = false;
   constructor(private activateRoute: ActivatedRoute,
@@ -71,6 +72,7 @@ export class EditUniversityComponent implements OnInit {
         this.logoSrc = university.logo;
         this.imageSrc = university.image;
         this.searchService.getMajor(this.constant.MAJOR)
+          
           .subscribe((value: any) => {
               this.listMajor = value;
             }, (err) => console.log(err),
@@ -78,7 +80,7 @@ export class EditUniversityComponent implements OnInit {
               this.valueMajor = [];
               for (let i = 0; i < this.university.majorUniversities.length; i++) {
                 if(this.university.majorUniversities[i].isActive){
-                  this.valueMajor.push(this.university.majorUniversities[i].major.id);
+                  this.valueMajor.push(this.university.majorUniversities[i].major.id.toString());
                 }
               }
             });
@@ -88,10 +90,10 @@ export class EditUniversityComponent implements OnInit {
   }
 
   getValueLocation(data) {
-    console.log(data);
     this.valueLocation = data.value;
   }
   getValueMajor(data){
+    
     this.currentMajor = data;
   }
 

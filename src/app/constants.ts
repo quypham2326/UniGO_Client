@@ -24,6 +24,7 @@ export class Constants {
   public REMOVE_MAJOR_UNI = this.SERVER_NAME + "/university/remove-major-uni";
   public GET_UNI_BY_ID = this.SERVER_NAME + "/university/get-university";
   public MBTI = this.SERVER_NAME + "/mbti/show-mbti-question";
+  
   public SAVE_MBTI_RESULT = this.SERVER_NAME + "/mbti/save-mbti-result";
   // public GET_MBTI_MAJOR = this.SERVER_NAME +"/mbti/get-mbti-major";
   public GET_MBTI_RESULT = this.SERVER_NAME + "/mbti/get-mbti-results";
